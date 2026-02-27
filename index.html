@@ -35,11 +35,7 @@
 <header class="fixed-header">
   <div class="header-inner">
     <div class="logo-wrap">
-      <div class="logo-main">
-        <span class="logo-rain">☔</span>
-        <span class="logo-text">アメトメ</span>
-      </div>
-      <span class="logo-sub">雨漏り専門サービス</span>
+      <img src="img/logo_yoko.png" alt="アメトメ" class="header-logo-img">
     </div>
     <a href="tel:01200940956" class="header-tel">
       <span class="tel-icon">
@@ -64,7 +60,7 @@
   <div class="hero-area-band">関東地方全域対応！</div>
   <div class="hero-inner">
     <div class="hero-text-block">
-      <p class="hero-service-label">雨漏り専門サービス</p>
+      <p class="hero-service-label">雨漏り修理専門サービス</p>
       <h1 class="hero-title">どんな雨漏りも確実解決！</h1>
       <p class="hero-sub">雨漏り診断士が無料調査！</p>
       <p class="hero-price-text">部分修理だから低価格！コミコミ税込 <strong>22,000</strong>円～</p>
@@ -334,7 +330,7 @@
 <!-- ===== DIY WARNING ===== -->
 <section class="diy-warning">
   <div class="section-header blue">
-    <h2>雨漏り修理は自分で<br>完全に修理できない!?</h2>
+    <h2>雨漏りは自分では<br>完全に修理できない！？</h2>
   </div>
   <div class="diy-risks">
     <div class="diy-risk">
@@ -448,13 +444,7 @@
         <p>可能性がある箇所に実際に水をまき、水漏れの有無を確かめます。</p>
       </div>
     </div>
-    <div class="inv-step">
-      <div class="inv-num">04</div>
-      <div class="inv-content">
-        <h4>赤外線カメラ診断</h4>
-        <p>赤外線カメラで映すことで、傷んだ箇所の温度差がわかります。外側から悪い箇所を発見できます。</p>
-      </div>
-    </div>
+
     <div class="inv-step highlight">
       <div class="inv-num"><img src="img/icon_diagnosis.png" alt="診断士" class="section-icon-sm"></div>
       <div class="inv-content">
@@ -623,8 +613,7 @@
 <!-- ===== FOOTER ===== -->
 <footer class="footer">
   <div class="footer-logo">
-    <span class="logo-text-sm">アメトメ</span>
-    <span class="footer-sub">雨漏り専門サービス</span>
+    <img src="img/logo_square.png" alt="アメトメ" class="footer-logo-img">
   </div>
   <nav class="footer-nav">
     <a href="#">プライバシーポリシー</a>
@@ -647,11 +636,13 @@
       <span class="fixed-num">0120-094-956</span>
     </span>
   </a>
-  <a href="#" class="fixed-btn-mail">
-    <span class="fixed-icon">✉</span>
+  <a href="#web-form" class="fixed-btn-mail" onclick="document.querySelector('.simple-form-section').scrollIntoView({behavior:'smooth'}); return false;">
+    <span class="fixed-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    </span>
     <span>
       <span class="fixed-label">無料</span>
-      <span class="fixed-label2">メール相談</span>
+      <span class="fixed-label2">WEB相談</span>
     </span>
   </a>
 </div>

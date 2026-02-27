@@ -1385,6 +1385,17 @@ a {
   align-items: center;
   margin-bottom: 12px;
 }
+.footer-logo-img {
+  height: 60px;
+  width: auto;
+  filter: brightness(0) invert(1);
+  margin-bottom: 4px;
+}
+.header-logo-img {
+  height: 36px;
+  width: auto;
+  display: block;
+}
 
 .logo-text-sm {
   font-size: 1.3rem;
@@ -1894,20 +1905,26 @@ a {
   font-size: 0.75rem;
   font-weight: 700;
   color: #fff;
-  background: rgba(0,60,140,0.75);
+  background: none;
   display: inline-block;
-  padding: 2px 8px;
-  border-radius: 3px;
+  padding: 2px 0;
+  border-radius: 0;
   margin: 0 0 6px 0;
   letter-spacing: 0.08em;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.9), 0 0 8px rgba(0,0,0,0.8);
 }
 
 .hero-title {
   font-size: 1.65rem;
   font-weight: 900;
   color: #ffdd00;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.9), 0 0 20px rgba(0,0,0,0.7);
+  font-style: italic;
+  text-shadow:
+    -2px -2px 0 #fff,
+     2px -2px 0 #fff,
+    -2px  2px 0 #fff,
+     2px  2px 0 #fff,
+     3px  3px 8px rgba(0,0,0,0.8);
   letter-spacing: 0.02em;
   margin: 0 0 10px 0;
   line-height: 1.2;
@@ -2108,8 +2125,10 @@ a {
   font-size: 40px;
   font-weight: 900;
   color: #ffd700;
-  vertical-align: middle;
+  vertical-align: baseline;
   line-height: 1;
+  display: inline-block;
+  margin: 0 2px;
 }
 .form-body {
   padding: 28px 16px 0;
@@ -2199,7 +2218,15 @@ a {
 
 /* ===== AMETOME GREEN (比較表) ===== */
 .compare-col.ametome-green {
-  background: linear-gradient(135deg, #1a7a3a, #2ea84e) !important;
+  background: linear-gradient(135deg, #4caf7d, #81c995) !important;
+  color: #1a4a2a;
+}
+.compare-col.ametome-green .compare-label {
+  background: #2e7d52;
+  color: #fff;
+}
+.compare-col.ametome-green ul li {
+  color: #1a4a2a;
 }
 
 /* ===== REVIEW PHOTO WIDE ===== */
