@@ -123,43 +123,44 @@ a {
 
 /* ===== HERO ===== */
 .hero {
-  background: linear-gradient(160deg, #003a6e 0%, #004c8c 50%, #0068b7 100%);
-  padding: 0 0 20px;
   position: relative;
   overflow: hidden;
-  min-height: 480px;
+  min-height: 558px;
+  padding: 0 0 20px;
 }
 
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -30px;
-  right: -30px;
-  width: 200px;
-  height: 200px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 50%;
-}
-
-.hero::after {
-  content: '';
-  position: absolute;
-  bottom: -20px;
-  left: -20px;
-  width: 150px;
-  height: 150px;
-  background: rgba(255,255,255,0.03);
-  border-radius: 50%;
-}
-
-.hero-image-area {
+/* 背面レイヤー：画像 */
+.hero-bg-image {
   position: absolute;
   top: 0;
-  right: 0;
-  width: 50%;
+  left: 0;
+  width: 100%;
   height: 100%;
-  overflow: hidden;
+  z-index: 0;
+}
+
+.hero-bg-image .hero-worker-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+  display: block;
+}
+
+/* 背面レイヤー：下部フェードアウトのみ */
+.hero-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10%;
+  background: linear-gradient(
+    to bottom,
+    rgba(240, 246, 255, 0) 0%,
+    rgba(240, 246, 255, 1) 100%
+  );
   z-index: 1;
+  pointer-events: none;
 }
 
 .hero-worker-placeholder {
@@ -186,6 +187,8 @@ a {
 }
 
 .hero-badge {
+  position: relative;
+  z-index: 2;
   background: #ff6600;
   color: #fff;
   text-align: center;
@@ -196,14 +199,17 @@ a {
 }
 
 .hero-content {
-  padding: 16px 16px 0;
+  padding: 16px 16px 16px;
   position: relative;
   z-index: 2;
+  width: 62%;
+  /* 左側にテキストを固定、右側の人物と重ならないように */
 }
 
 .hero-catch {
   color: #fff;
   margin-bottom: 14px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.7), 0 0 20px rgba(0,0,0,0.5);
 }
 
 .hero-catch-main {
@@ -211,35 +217,41 @@ a {
   font-size: 1.9rem;
   font-weight: 900;
   line-height: 1.2;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  color: #fff;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.9), 0 0 20px rgba(0,0,0,0.8);
+  background: none;
+  padding: 0;
+  margin-bottom: 2px;
 }
 
 .hero-catch-main em {
   font-style: normal;
   color: #ffdd00;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-  display: block;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+  display: inline;
   font-size: 2.2rem;
 }
 
 .hero-catch-sub {
-  display: block;
-  font-size: 1.4rem;
+  display: inline-block;
+  font-size: 1.1rem;
   font-weight: 700;
-  margin-top: 6px;
+  margin-top: 8px;
   color: #fff;
-  background: rgba(255,255,255,0.15);
+  background: rgba(0, 30, 80, 0.75);
   padding: 6px 12px;
   border-radius: 6px;
   border-left: 4px solid #ffdd00;
+  backdrop-filter: blur(2px);
 }
 
 .hero-price-box {
-  background: rgba(255,255,255,0.12);
+  background: rgba(0, 30, 80, 0.65);
   border: 2px solid rgba(255,255,255,0.3);
   border-radius: 10px;
   padding: 12px;
   margin-bottom: 14px;
+  backdrop-filter: blur(2px);
 }
 
 .hero-price-label {
@@ -298,9 +310,9 @@ a {
   gap: 8px;
   background: linear-gradient(135deg, #ff6600, #ff8800);
   color: #fff;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 900;
-  padding: 14px 30px;
+  padding: 12px 16px;
   border-radius: 50px;
   box-shadow: 0 4px 15px rgba(255,102,0,0.4);
   width: 100%;
@@ -320,11 +332,12 @@ a {
 .hero-rating {
   display: flex;
   align-items: center;
-  background: rgba(255,255,255,0.1);
+  background: rgba(0, 30, 80, 0.65);
   border-radius: 10px;
   padding: 10px;
   gap: 10px;
   margin-bottom: 6px;
+  backdrop-filter: blur(2px);
 }
 
 .rating-item {
@@ -361,9 +374,10 @@ a {
 
 .rating-note {
   font-size: 0.65rem;
-  color: #aac8ee;
+  color: #fff;
   text-align: center;
-  padding: 0 16px;
+  padding: 2px 16px 8px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
 }
 
 /* ===== CTA BAND ===== */
@@ -1771,4 +1785,462 @@ a {
   height: 100%;
   object-fit: cover;
   object-position: top center;
+}
+
+/* ===== ヒーロー下部（満足度〜CTA）中央配置 ===== */
+.hero-bottom {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 0 16px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-bottom .hero-rating {
+  width: 100%;
+  max-width: 340px;
+}
+
+.hero-bottom .rating-note {
+  text-align: center;
+}
+
+.hero-bottom .hero-cta {
+  width: 100%;
+  max-width: 340px;
+}
+
+/* ===== NEW HERO ===== */
+.hero {
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  min-height: 300px;
+  overflow: hidden;
+  margin-top: 0;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  z-index: 1;
+}
+
+/* 下部10%フェード */
+.hero-fade-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 12%;
+  background: linear-gradient(to bottom, transparent 0%, #e8f4ff 100%);
+  z-index: 2;
+}
+
+/* 関東帯 */
+.hero-area-band {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  background: rgba(255, 107, 0, 0.92);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 5px 0;
+  letter-spacing: 0.1em;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 38px 0 20px 0; /* 上部：関東帯分＋余白、下部：フェード分 */
+}
+
+/* テキストブロック（左寄せ・左70%以内） */
+.hero-text-block {
+  width: 72%;
+  padding: 0 16px;
+  margin-bottom: 10px;
+}
+
+.hero-service-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0,60,140,0.75);
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin: 0 0 6px 0;
+  letter-spacing: 0.08em;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+}
+
+.hero-title {
+  font-size: 1.65rem;
+  font-weight: 900;
+  color: #ffdd00;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.9), 0 0 20px rgba(0,0,0,0.7);
+  letter-spacing: 0.02em;
+  margin: 0 0 10px 0;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.hero-sub {
+  display: inline-block;
+  font-size: 1.0rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0,40,100,0.75);
+  padding: 4px 10px;
+  border-radius: 4px;
+  border-left: 4px solid #ffdd00;
+  margin: 0 0 12px 0;
+}
+
+/* 価格テキスト（1行） */
+.hero-price-text {
+  display: inline-block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0,40,100,0.75);
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin: 0 0 0 0;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.hero-price-text strong {
+  font-size: 1.4rem;
+  color: #ffdd00;
+  font-weight: 900;
+}
+
+/* 満足度ブロック（横幅いっぱい・中央） */
+.hero-rating-block {
+  width: 100%;
+  padding: 0 14px;
+  margin-top: 12px;
+  margin-bottom: 10px;
+}
+
+.hero-rating-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  background: rgba(0,40,100,0.80);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.hero-rating-row .rating-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.hero-rating-row .rating-label {
+  font-size: 0.7rem;
+  color: #cce4ff;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.hero-rating-row .rating-score {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #ffdd00;
+  line-height: 1.1;
+}
+
+.hero-rating-row .rating-stars {
+  font-size: 0.75rem;
+  color: #ffdd00;
+  letter-spacing: 1px;
+}
+
+.hero-rating-row .rating-divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255,255,255,0.3);
+  margin: 0 10px;
+  flex-shrink: 0;
+}
+
+/* CTAブロック（横幅いっぱい） */
+.hero-cta-block {
+  width: 100%;
+  padding: 0 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-hero-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 100%;
+  background: linear-gradient(135deg, #ff6b00, #ff9500);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  padding: 10px 16px 12px;
+  box-shadow: 0 4px 16px rgba(255,107,0,0.5);
+}
+
+.btn-hero-cta:active {
+  opacity: 0.85;
+}
+
+/* 補助テキスト（上行） */
+.btn-hero-cta-sub {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.92);
+  letter-spacing: 0.03em;
+}
+
+/* 電話番号（下行・大きく） */
+.btn-hero-cta-tel {
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+}
+
+.hero-tel {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 1px 1px 6px rgba(0,0,0,0.8);
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+/* ===== SIMPLE FORM SECTION ===== */
+.simple-form-section {
+  background: #f0f6ff;
+  padding: 0 0 24px;
+  margin: 0;
+}
+.form-badge {
+  background: linear-gradient(90deg, #0068b7, #42a7db);
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 16px;
+  letter-spacing: 0.5px;
+}
+.form-header {
+  background: #004c8c;
+  text-align: center;
+  padding: 16px 16px 20px;
+  position: relative;
+}
+.form-header::after {
+  content: '';
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 15px solid #004c8c;
+  z-index: 1;
+}
+.form-header-sub {
+  color: #a8d4f5;
+  font-size: 13px;
+  margin: 0 0 4px;
+}
+.form-header-title {
+  color: white;
+  font-size: 22px;
+  font-weight: 900;
+  margin: 0;
+  line-height: 1.3;
+}
+.form-big {
+  font-size: 40px;
+  font-weight: 900;
+  color: #ffd700;
+  vertical-align: middle;
+  line-height: 1;
+}
+.form-body {
+  padding: 28px 16px 0;
+}
+.form-step-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 10px;
+}
+.form-type-btns {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.form-type-btn {
+  flex: 1;
+  background: #e87a00;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  font-family: 'Noto Sans JP', sans-serif;
+  transition: opacity 0.2s, transform 0.1s;
+  box-shadow: 0 3px 8px rgba(232,122,0,0.4);
+}
+.form-type-btn.selected {
+  background: #cc6600;
+  outline: 3px solid #ffd700;
+}
+.form-type-btn:active { transform: scale(0.97); }
+.form-type-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form-tel-input {
+  width: 100%;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 16px;
+  box-sizing: border-box;
+  margin-bottom: 14px;
+  outline: none;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+.form-tel-input:focus { border-color: #0068b7; }
+.form-submit-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #e87a00, #ff9900);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 16px;
+  font-size: 18px;
+  font-weight: 900;
+  cursor: pointer;
+  font-family: 'Noto Sans JP', sans-serif;
+  box-shadow: 0 4px 12px rgba(232,122,0,0.5);
+  transition: transform 0.1s;
+  margin-bottom: 12px;
+}
+.form-submit-btn:active { transform: scale(0.98); }
+.form-disclaimer {
+  font-size: 11px;
+  color: #888;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ===== CERT PHOTO WIDE (診断士横長画像) ===== */
+.cert-photo-wide {
+  width: 100%;
+  aspect-ratio: 1.9 / 1;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* ===== AMETOME GREEN (比較表) ===== */
+.compare-col.ametome-green {
+  background: linear-gradient(135deg, #1a7a3a, #2ea84e) !important;
+}
+
+/* ===== REVIEW PHOTO WIDE ===== */
+.review-photo-wide {
+  width: 100%;
+  aspect-ratio: 1.9 / 1;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  border-radius: 10px 10px 0 0;
+}
+.review-card {
+  overflow: hidden;
+}
+
+/* ===== KANTO MAP ===== */
+.area-map-img {
+  width: 100%;
+  max-width: 420px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 12px;
+}
+
+/* ===== HERO CTA ANIMATION ===== */
+@keyframes heroPulse {
+  0%   { transform: scale(1);    box-shadow: 0 4px 16px rgba(232,122,0,0.5); }
+  50%  { transform: scale(1.03); box-shadow: 0 6px 22px rgba(232,122,0,0.7); }
+  100% { transform: scale(1);    box-shadow: 0 4px 16px rgba(232,122,0,0.5); }
+}
+.btn-hero-cta {
+  animation: heroPulse 2.4s ease-in-out infinite;
+}
+
+/* ===== REALTIME NOTE ===== */
+#realtime-note {
+  font-size: 13px;
+  color: #fff;
+  background: rgba(0,76,140,0.75);
+  padding: 4px 12px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-top: 6px;
 }

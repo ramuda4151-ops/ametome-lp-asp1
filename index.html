@@ -6,6 +6,27 @@
   <title>雨漏り修理・屋根修理 関東対応｜アメトメ</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <script>
+    // リアルタイム時刻表示
+    function updateRealtimeNote() {
+      var el = document.getElementById('realtime-note');
+      if (!el) return;
+      var now = new Date();
+      var h = now.getHours();
+      var m = now.getMinutes();
+      var hStr = String(h).padStart(2,'0');
+      var mStr = String(m).padStart(2,'0');
+      el.textContent = hStr + '\uFF1A' + mStr + '\u5206\u73fe\u5728\u3001\u304a\u96fb\u8a71\u304c\u3064\u306a\u304c\u308a\u3084\u3059\u304f\u306a\u3063\u3066\u304a\u308a\u307e\u3059\uff01';
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      updateRealtimeNote();
+      setInterval(updateRealtimeNote, 60000);
+      // フォームボタントグル
+      window.toggleFormType = function(btn) {
+        btn.classList.toggle('selected');
+      };
+    });
+  </script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -22,61 +43,56 @@
     </div>
     <a href="tel:01200940956" class="header-tel">
       <span class="tel-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white">
           <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
         </svg>
       </span>
-      <span class="tel-num">0120-094-956</span>
+      <span class="tel-num">まずは無料相談</span>
     </a>
   </div>
 </header>
 
+
 <!-- ===== HERO ===== -->
 <section class="hero">
-  <div class="hero-badge">関東エリア 受付対応中！</div>
-    <div class="hero-image-area">
-      <img src="img/photo_hero_worker.jpg" alt="雨漏り修理のプロ" class="hero-worker-img">
+  <div class="hero-bg">
+    <img src="img/fv_bg_v2.jpg" alt="屋根修理作業" class="hero-bg-img">
+    <div class="hero-overlay"></div>
+    <div class="hero-fade-bottom"></div>
+  </div>
+  <!-- 関東帯 -->
+  <div class="hero-area-band">関東地方全域対応！</div>
+  <div class="hero-inner">
+    <div class="hero-text-block">
+      <p class="hero-service-label">雨漏り専門サービス</p>
+      <h1 class="hero-title">どんな雨漏りも確実解決！</h1>
+      <p class="hero-sub">雨漏り診断士が無料調査！</p>
+      <p class="hero-price-text">部分修理だから低価格！コミコミ税込 <strong>22,000</strong>円～</p>
     </div>
-  <div class="hero-content">
-    <h1 class="hero-catch">
-      <span class="hero-catch-main">雨漏りを</span>
-      <span class="hero-catch-main"><em>確実解決！</em></span>
-      <span class="hero-catch-sub">雨漏り診断士が無料調査！</span>
-    </h1>
-    <div class="hero-price-box">
-      <div class="hero-price-label">
-        <span class="price-badge">安心の明朗会計</span>
-        <span class="price-note">お見積り後の追加料金一切なし</span>
-      </div>
-      <div class="hero-price">
-        <span class="price-from">部分修理だから低価格！</span>
-        <span class="price-main">税込 <strong>22,000</strong>円〜</span>
+    <div class="hero-rating-block">
+      <div class="hero-rating-row">
+        <div class="rating-item">
+          <span class="rating-label">電話対応満足度</span>
+          <span class="rating-score">4.8</span>
+          <span class="rating-stars">★★★★★</span>
+        </div>
+        <div class="rating-divider"></div>
+        <div class="rating-item">
+          <span class="rating-label">修理対応満足度</span>
+          <span class="rating-score">4.5</span>
+          <span class="rating-stars">★★★★★</span>
+        </div>
       </div>
     </div>
-    <div class="hero-cta">
-      <a href="tel:01200940956" class="btn-call-hero">
-        <span class="btn-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
-            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-          </svg>
-        </span> 今すぐ無料相談
+    <div class="hero-cta-block">
+      <a href="tel:01200940956" class="btn-hero-cta">
+        <span class="btn-hero-cta-sub">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          雨漏り診断士に無料相談してみる
+        </span>
+        <span class="btn-hero-cta-tel">0120-094-956</span>
       </a>
-      <p class="hero-cta-note">24時間365日 受付中</p>
     </div>
-    <div class="hero-rating">
-      <div class="rating-item">
-        <span class="rating-label">電話対応<br>満足度</span>
-        <span class="rating-score">4.8</span>
-        <span class="rating-stars">★★★★★</span>
-      </div>
-      <div class="rating-divider"></div>
-      <div class="rating-item">
-        <span class="rating-label">修理対応<br>満足度</span>
-        <span class="rating-score">4.5</span>
-        <span class="rating-stars">★★★★★</span>
-      </div>
-    </div>
-    <p class="rating-note">※弊社受付の満足度調査より</p>
   </div>
 </section>
 
@@ -97,7 +113,37 @@
     <span class="call-free">無料通話</span>
     <span class="call-num">0120-094-956</span>
   </a>
-  <p class="cta-band-note">今ならすぐにご対応可能です！</p>
+  <p class="cta-band-note" id="realtime-note">今ならすぐにご対応可能です！</p>
+</section>
+
+<!-- ===== SIMPLE FORM ===== -->
+<section class="simple-form-section">
+  <div class="form-badge">お見積り・現地調査だけなら無料！</div>
+  <div class="form-header">
+    <p class="form-header-sub">＼ カンタン楽々 ／</p>
+    <h2 class="form-header-title">たった<span class="form-big">10</span>秒で相談完了！</h2>
+  </div>
+  <div class="form-body">
+    <p class="form-step-label">① ご希望の依頼を選択してください（複数選択可）</p>
+    <div class="form-type-btns">
+      <button class="form-type-btn" onclick="toggleFormType(this)">
+        <span class="form-type-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM8 16h8v2H8v-2zm0-4h8v2H8v-2zm0-4h5v2H8V8z"/></svg>
+        </span>
+        <span>お見積り</span>
+      </button>
+      <button class="form-type-btn" onclick="toggleFormType(this)">
+        <span class="form-type-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/><circle cx="18" cy="10" r="3" fill="#ffdd00"/><path d="M17 9h2v1h-1v1h-1V9zm1 2h1v1h-1v-1z" fill="#004c8c"/></svg>
+        </span>
+        <span>現地調査</span>
+      </button>
+    </div>
+    <p class="form-step-label">② お電話番号を入力してください</p>
+    <input type="tel" class="form-tel-input" placeholder="お電話番号（例：09012345678）" inputmode="numeric">
+    <button class="form-submit-btn">申し込む</button>
+    <p class="form-disclaimer">※利用規約・プライバシーポリシーに同意の上、ご利用ください。<br>※弊社から見積りに関しご連絡させていただく場合がございます。</p>
+  </div>
 </section>
 
 <!-- ===== UNIQUE VALUE ===== -->
@@ -105,7 +151,7 @@
   <div class="section-header blue">
     <h2>アメトメが選ばれる理由</h2>
   </div>
-  <img src="img/photo_diagnosis_man.jpg" alt="雨漏り診断士" class="cert-photo">
+  <img src="img/photo_diagnosis_wide.jpg" alt="雨漏り診断士" class="cert-photo-wide">
   <div class="unique-card highlight-card">
     <div class="unique-icon"><img src="img/icon_diagnosis.png" alt="雨漏り診断士" class="section-icon"></div>
     <h3>電話対応は<br><em>雨漏り診断士が直接対応！</em></h3>
@@ -121,12 +167,12 @@
       </ul>
     </div>
     <div class="compare-vs">VS</div>
-    <div class="compare-col ametome">
+    <div class="compare-col ametome ametome-green">
       <div class="compare-label">アメトメ</div>
       <ul>
-        <li>✅ 雨漏り診断士が直接対応</li>
-        <li>✅ 状況に応じた専門的アドバイス</li>
-        <li>✅ 即座に的確な判断が可能</li>
+        <li>雨漏り診断士が直接対応</li>
+        <li>状況に応じた専門的アドバイス</li>
+        <li>即座に的確な判断が可能</li>
       </ul>
     </div>
   </div>
@@ -161,7 +207,7 @@
   </div>
   <div class="worry-cta">
     <p>そのまま放置すると<strong>2次被害</strong>に繋がります！</p>
-    <a href="tel:01200940956" class="btn-call-sm">今すぐ無料相談</a>
+    <a href="tel:01200940956" class="btn-call-sm">雨漏り診断士に今すぐ無料相談</a>
   </div>
 </section>
 
@@ -281,8 +327,7 @@
     <p class="danger-cta-text">2次被害・症状悪化で<strong>費用が高くなる前に…</strong></p>
     <div class="danger-action">
       <p class="danger-action-title">早めに被害を確認しましょう！</p>
-      <a href="tel:01200940956" class="btn-call-sm">今すぐ無料相談</a>
-    </div>
+          <a href="tel:01200940956" class="btn-call-sm">雨漏り診断士に今すぐ無料相談</a>
   </div>
 </section>
 
@@ -464,23 +509,23 @@
   </div>
   <div class="review-list">
     <div class="review-card">
-      <img src="img/photo_review1.jpg" alt="東京都 T様" class="review-avatar">
+    <img src="img/review1_wide.jpg" alt="東京都 T様" class="review-photo-wide">
       <div class="review-header">
         <span class="review-stars">★★★★★</span>
         <span class="review-name">東京都 T様（50代）</span>
       </div>
-      <p>電話した際に雨漏り診断士の方が直接対応してくれて、状況を詳しく説明するだけで原因の見当をつけてもらえました。翌日には調査に来ていただき、迅速に修理完了。他社に断られた箇所も対応してもらえて大変助かりました。</p>
+      <p>電話した際に雨漏り診断士の方が直接対応してくげて、状況を詳しく説明するだけで原因の見当をつけてもらえました。翔日には調査に来ていただき、迅速に修理完了。他社に断られた箇所も対応してもらえて大変助かりました。</p>
     </div>
     <div class="review-card">
-      <img src="img/photo_review2.jpg" alt="神奈川県 K様" class="review-avatar">
+      <img src="img/review2_wide.jpg" alt="神奈川県 K様" class="review-photo-wide">
       <div class="review-header">
         <span class="review-stars">★★★★★</span>
         <span class="review-name">神奈川県 K様（40代）</span>
       </div>
-      <p>深夜に急に雨漏りが発生し、慌てて電話しました。深夜にもかかわらず専門家の方が丁寧に応急処置の方法を教えてくれて、翌朝には修理に来てもらえました。料金も他社より安く、大変満足しています。</p>
+      <p>深夜に急に雨漏りが発生し、慕って電話しました。深夜にもかかわらず専門家の方が丁寧に応急処置の方法を教えてくれて、翔朝には修理に来てもらえました。料金も他社より安く、大変満足しています。</p>
     </div>
     <div class="review-card">
-      <img src="img/photo_review3.jpg" alt="埼玉県 S様" class="review-avatar">
+      <img src="img/review3_wide.jpg" alt="埼玉県 S様" class="review-photo-wide">
       <div class="review-header">
         <span class="review-stars">★★★★★</span>
         <span class="review-name">埼玉県 S様（60代）</span>
@@ -543,19 +588,8 @@
   <p class="area-lead">24時間365日、年中無休で受付しております</p>
   <div class="area-main">
     <div class="area-map-wrap">
-      <img src="img/map_japan.svg" alt="日本地図 関東エリア対応" class="area-map-img">
+      <img src="img/map_kanto.svg" alt="関東地図" class="area-map-img">
       <p class="area-map-note">関東近隣の方もご相談ください</p>
-    </div>
-    <div class="area-list">
-      <span class="area-tag main">東京都</span>
-      <span class="area-tag main">神奈川県</span>
-      <span class="area-tag main">埼玉県</span>
-      <span class="area-tag main">千葉県</span>
-      <span class="area-tag">茨城県</span>
-      <span class="area-tag">栃木県</span>
-      <span class="area-tag">群馬県</span>
-      <span class="area-tag">山梨県</span>
-      <span class="area-tag">静岡県</span>
     </div>
   </div>
   <p class="area-note">※上記以外のエリアはお問い合わせください</p>
