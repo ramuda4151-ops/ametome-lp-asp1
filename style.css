@@ -34,7 +34,7 @@ a {
   width: 100%;
   max-width: 480px;
   background: #fff;
-  border-bottom: 3px solid #0047b3;
+  border-bottom: 3px solid #004c8c;
   z-index: 1000;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
@@ -64,7 +64,7 @@ a {
 .logo-text {
   font-size: 1.5rem;
   font-weight: 900;
-  color: #0047b3;
+  color: #004c8c;
   line-height: 1;
   letter-spacing: 1px;
 }
@@ -79,7 +79,7 @@ a {
   display: flex;
   align-items: center;
   gap: 4px;
-  background: #0047b3;
+  background: #004c8c;
   color: #fff;
   padding: 6px 10px;
   border-radius: 6px;
@@ -110,11 +110,11 @@ a {
 }
 
 .section-header.blue {
-  background: linear-gradient(135deg, #0047b3, #0066cc);
+  background: linear-gradient(135deg, #004c8c, #0068b7);
 }
 
 .section-header.dark {
-  background: linear-gradient(135deg, #003080, #0047b3);
+  background: linear-gradient(135deg, #003a6e, #004c8c);
 }
 
 .section-header.orange {
@@ -123,7 +123,7 @@ a {
 
 /* ===== HERO ===== */
 .hero {
-  background: linear-gradient(160deg, #003080 0%, #0055cc 50%, #0077ee 100%);
+  background: linear-gradient(160deg, #003a6e 0%, #004c8c 50%, #0068b7 100%);
   padding: 0 0 20px;
   position: relative;
   overflow: hidden;
@@ -370,7 +370,7 @@ a {
 
 /* ===== CTA BAND ===== */
 .cta-band {
-  background: linear-gradient(135deg, #003080, #0047b3);
+  background: linear-gradient(135deg, #003a6e, #004c8c);
   padding: 16px;
   text-align: center;
 }
@@ -410,7 +410,7 @@ a {
   justify-content: center;
   gap: 8px;
   background: #fff;
-  color: #0047b3;
+  color: #004c8c;
   border-radius: 8px;
   padding: 12px;
   margin-bottom: 8px;
@@ -423,7 +423,7 @@ a {
 .call-free {
   display: block;
   font-size: 0.65rem;
-  background: #0047b3;
+  background: #004c8c;
   color: #fff;
   padding: 1px 6px;
   border-radius: 3px;
@@ -435,7 +435,7 @@ a {
   font-size: 1.5rem;
   font-weight: 900;
   letter-spacing: 1px;
-  color: #0047b3;
+  color: #004c8c;
 }
 
 .cta-band-note {
@@ -456,7 +456,7 @@ a {
 
 .highlight-card {
   background: linear-gradient(135deg, #f0f6ff, #e0eeff);
-  border-left: 4px solid #0047b3;
+  border-left: 4px solid #004c8c;
   margin: 12px;
   border-radius: 8px;
   padding: 16px;
@@ -470,14 +470,14 @@ a {
 .unique-card h3 {
   font-size: 1.05rem;
   font-weight: 900;
-  color: #003080;
+  color: #003a6e;
   margin-bottom: 10px;
   line-height: 1.4;
 }
 
 .unique-card h3 em {
   font-style: normal;
-  color: #0047b3;
+  color: #004c8c;
 }
 
 .unique-card p {
@@ -507,7 +507,7 @@ a {
 
 .compare-col.ametome {
   background: linear-gradient(135deg, #e8f4ff, #d0e8ff);
-  border: 2px solid #0047b3;
+  border: 2px solid #004c8c;
 }
 
 .compare-label {
@@ -525,7 +525,7 @@ a {
 }
 
 .compare-col.ametome .compare-label {
-  background: #0047b3;
+  background: #004c8c;
   color: #fff;
 }
 
@@ -613,7 +613,7 @@ a {
 
 .btn-call-sm.white {
   background: #fff;
-  color: #0047b3;
+  color: #004c8c;
   border: 2px solid #fff;
 }
 
@@ -626,7 +626,7 @@ a {
 
 /* ===== INSURANCE ===== */
 .insurance {
-  background: linear-gradient(135deg, #0047b3, #0066cc);
+  background: linear-gradient(135deg, #004c8c, #0068b7);
   padding: 20px 16px;
   margin-bottom: 4px;
 }
@@ -675,13 +675,13 @@ a {
 }
 
 .price-card {
-  border: 2px solid #0047b3;
+  border: 2px solid #004c8c;
   border-radius: 8px;
   overflow: hidden;
 }
 
 .price-card-name {
-  background: #0047b3;
+  background: #004c8c;
   color: #fff;
   font-size: 0.8rem;
   font-weight: 700;
@@ -708,7 +708,7 @@ a {
 .price-note-box {
   margin: 0 16px 16px;
   background: #f0f6ff;
-  border-left: 4px solid #0047b3;
+  border-left: 4px solid #004c8c;
   padding: 12px;
   border-radius: 0 8px 8px 0;
   font-size: 0.8rem;
@@ -727,7 +727,7 @@ a {
   font-size: 0.8rem;
   font-weight: 700;
   color: #fff;
-  background: #0047b3;
+  background: #004c8c;
   padding: 8px;
   border-radius: 6px;
   margin-bottom: 10px;
@@ -915,7 +915,7 @@ a {
 .diy-solution h3 {
   font-size: 1rem;
   font-weight: 900;
-  color: #003080;
+  color: #003a6e;
   text-align: center;
   margin-bottom: 14px;
   line-height: 1.4;
@@ -944,7 +944,7 @@ a {
 .solution-item strong {
   display: block;
   font-size: 0.85rem;
-  color: #0047b3;
+  color: #004c8c;
   margin-bottom: 2px;
 }
 
@@ -971,13 +971,13 @@ a {
   background: #f0f6ff;
   border-radius: 10px;
   padding: 14px;
-  border-left: 4px solid #0047b3;
+  border-left: 4px solid #004c8c;
 }
 
 .step-num {
   font-size: 0.65rem;
   font-weight: 700;
-  color: #0047b3;
+  color: #004c8c;
   white-space: nowrap;
   min-width: 48px;
   text-align: center;
@@ -987,14 +987,14 @@ a {
   display: block;
   font-size: 1.5rem;
   font-weight: 900;
-  color: #0047b3;
+  color: #004c8c;
   line-height: 1;
 }
 
 .step-content h4 {
   font-size: 0.9rem;
   font-weight: 700;
-  color: #003080;
+  color: #003a6e;
   margin-bottom: 4px;
 }
 
@@ -1007,7 +1007,7 @@ a {
 .flow-arrow {
   text-align: center;
   font-size: 1.2rem;
-  color: #0047b3;
+  color: #004c8c;
   padding: 4px 0;
 }
 
@@ -1034,13 +1034,13 @@ a {
 
 .inv-step.highlight {
   background: linear-gradient(135deg, #e8f4ff, #d0e8ff);
-  border: 2px solid #0047b3;
+  border: 2px solid #004c8c;
 }
 
 .inv-num {
   font-size: 1.2rem;
   font-weight: 900;
-  color: #0047b3;
+  color: #004c8c;
   min-width: 36px;
   text-align: center;
   flex-shrink: 0;
@@ -1049,7 +1049,7 @@ a {
 .inv-content h4 {
   font-size: 0.85rem;
   font-weight: 700;
-  color: #003080;
+  color: #003a6e;
   margin-bottom: 4px;
 }
 
@@ -1078,13 +1078,13 @@ a {
   background: #f0f6ff;
   border-radius: 10px;
   padding: 14px;
-  border-left: 4px solid #0047b3;
+  border-left: 4px solid #004c8c;
 }
 
 .reason-num {
   font-size: 1.4rem;
   font-weight: 900;
-  color: #0047b3;
+  color: #004c8c;
   min-width: 36px;
   flex-shrink: 0;
 }
@@ -1092,7 +1092,7 @@ a {
 .reason-content h4 {
   font-size: 0.9rem;
   font-weight: 700;
-  color: #003080;
+  color: #003a6e;
   margin-bottom: 4px;
 }
 
@@ -1157,7 +1157,7 @@ a {
 .review-name {
   font-size: 0.75rem;
   font-weight: 700;
-  color: #0047b3;
+  color: #004c8c;
 }
 
 .review-card p {
@@ -1189,7 +1189,7 @@ a {
   padding: 14px;
   font-size: 0.85rem;
   font-weight: 700;
-  color: #003080;
+  color: #003a6e;
   background: #f0f6ff;
   cursor: pointer;
   list-style: none;
@@ -1204,7 +1204,7 @@ a {
   top: 50%;
   transform: translateY(-50%);
   font-size: 0.7rem;
-  color: #0047b3;
+  color: #004c8c;
   transition: transform 0.2s;
 }
 
@@ -1242,7 +1242,7 @@ a {
 }
 
 .area-map-placeholder {
-  background: linear-gradient(135deg, #003080, #0047b3);
+  background: linear-gradient(135deg, #003a6e, #004c8c);
   height: 120px;
   border-radius: 10px;
   display: flex;
@@ -1273,9 +1273,9 @@ a {
 }
 
 .area-tag.main {
-  background: #0047b3;
+  background: #004c8c;
   color: #fff;
-  border-color: #0047b3;
+  border-color: #004c8c;
   font-weight: 700;
 }
 
@@ -1288,7 +1288,7 @@ a {
 
 /* ===== FINAL CTA ===== */
 .final-cta {
-  background: linear-gradient(160deg, #003080, #0055cc);
+  background: linear-gradient(160deg, #003a6e, #004c8c);
   padding: 30px 16px;
   text-align: center;
 }
@@ -1325,7 +1325,7 @@ a {
 .call-free-lg {
   display: block;
   font-size: 0.65rem;
-  background: #0047b3;
+  background: #004c8c;
   color: #fff;
   padding: 2px 8px;
   border-radius: 3px;
@@ -1336,7 +1336,7 @@ a {
   display: block;
   font-size: 1.6rem;
   font-weight: 900;
-  color: #0047b3;
+  color: #004c8c;
   letter-spacing: 1px;
 }
 
@@ -1362,7 +1362,7 @@ a {
 
 /* ===== FOOTER ===== */
 .footer {
-  background: #001a4d;
+  background: #002a5c;
   padding: 20px 16px;
   text-align: center;
 }
@@ -1422,7 +1422,7 @@ a {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  background: linear-gradient(135deg, #0047b3, #0066cc);
+  background: linear-gradient(135deg, #004c8c, #0068b7);
   padding: 10px 8px;
   color: #fff;
 }
@@ -1474,4 +1474,221 @@ a {
 .btn-call-band,
 .btn-call-final {
   animation: pulse 2s ease-in-out infinite;
+}
+
+/* ===== IMAGE ICONS ===== */
+.section-icon {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.section-icon-sm {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  display: block;
+}
+
+.tel-icon-img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  vertical-align: middle;
+}
+
+.tel-icon-img-lg {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(20%) sepia(80%) saturate(600%) hue-rotate(195deg);
+  vertical-align: middle;
+}
+
+.tel-icon-img-sm {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  vertical-align: middle;
+}
+
+.inline-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  vertical-align: middle;
+  display: inline;
+  filter: brightness(0) invert(1);
+}
+
+/* ===== ICON ADJUSTMENTS ===== */
+.worry-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.worry-icon img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.danger-icon img,
+.diy-icon img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 4px;
+}
+
+.sol-icon img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.unique-icon img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 8px;
+}
+
+.insurance-inner h3 img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.inv-num img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.roof-icon img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 4px;
+}
+
+/* ===== HERO WORKER IMAGE ===== */
+.hero-worker-img {
+  width: 130px;
+  height: 160px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 8px;
+  opacity: 0.9;
+}
+
+/* ===== SECTION PHOTO IMAGES ===== */
+.cert-photo {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.worry-photo-row {
+  display: flex;
+  gap: 4px;
+  padding: 0;
+}
+
+.worry-photo {
+  flex: 1;
+  height: 130px;
+  object-fit: cover;
+  display: block;
+}
+
+.insurance-photo {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.danger-photo {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.flow-photo {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.inv-photo {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.review-photo {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+
+/* ===== HERO WORKER PHOTO ===== */
+.hero-worker-img {
+  width: 140px;
+  height: 200px;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 0 0 0 12px;
+}
+
+/* ===== INSURANCE HERO OVERLAY ===== */
+.insurance-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.insurance-hero .insurance-photo {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+}
+
+.insurance-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 76, 140, 0.85));
+  padding: 20px 16px 10px;
+}
+
+.insurance-overlay h3 {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 900;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
