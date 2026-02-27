@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 520" width="420" height="520">
+  <defs>
+    <style>
+      .bg { fill: #deeef8; }
+      .sea { fill: #b8d8f0; }
+      .pref-base { fill: #9fc8e8; stroke: #6aaad4; stroke-width: 0.7; }
+      .kanto { fill: #004c8c; stroke: #002a5e; stroke-width: 1.0; }
+      .kanto-near { fill: #1a6fad; stroke: #004c8c; stroke-width: 0.8; }
+      .kanto-label { fill: white; font-family: sans-serif; font-size: 12px; font-weight: bold; text-anchor: middle; }
+      .pref-label { fill: white; font-family: sans-serif; font-size: 7px; text-anchor: middle; dominant-baseline: middle; }
+      .region-label { fill: #336699; font-family: sans-serif; font-size: 8px; text-anchor: middle; }
+      .note-text { fill: #004c8c; font-family: sans-serif; font-size: 12px; font-weight: bold; text-anchor: middle; }
+      .note-sub { fill: #555; font-family: sans-serif; font-size: 10px; text-anchor: middle; }
+      .dash-circle { fill: none; stroke: #ff6600; stroke-width: 2.5; stroke-dasharray: 8,4; }
+    </style>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="420" height="520" fill="#deeef8" rx="14"/>
+
+  <!-- ===== 北海道 ===== -->
+  <!-- 道央・道南 -->
+  <path class="pref-base" d="M 248 28 L 268 22 L 295 26 L 318 34 L 332 48 L 328 62 L 310 72 L 288 76 L 268 70 L 252 58 L 244 44 Z"/>
+  <!-- 道東 -->
+  <path class="pref-base" d="M 318 34 L 345 28 L 362 38 L 368 52 L 358 64 L 338 68 L 318 60 L 310 48 Z"/>
+  <!-- 道北 -->
+  <path class="pref-base" d="M 268 22 L 285 15 L 308 18 L 318 28 L 308 36 L 290 34 L 272 30 Z"/>
+
+  <!-- ===== 東北 ===== -->
+  <!-- 青森 -->
+  <path class="pref-base" d="M 272 82 L 290 78 L 305 84 L 308 96 L 298 104 L 280 106 L 268 98 L 266 88 Z"/>
+  <!-- 岩手 -->
+  <path class="pref-base" d="M 288 106 L 308 100 L 318 110 L 315 128 L 302 136 L 285 132 L 278 118 L 280 108 Z"/>
+  <!-- 秋田 -->
+  <path class="pref-base" d="M 265 100 L 282 98 L 285 115 L 278 130 L 262 132 L 250 120 L 252 106 Z"/>
+  <!-- 宮城 -->
+  <path class="pref-base" d="M 282 134 L 302 130 L 312 140 L 308 155 L 292 158 L 278 150 L 276 138 Z"/>
+  <!-- 山形 -->
+  <path class="pref-base" d="M 260 132 L 278 130 L 282 145 L 274 158 L 258 158 L 246 148 L 248 136 Z"/>
+  <!-- 福島 -->
+  <path class="pref-base" d="M 255 160 L 278 155 L 295 158 L 298 172 L 285 180 L 262 180 L 248 170 L 250 162 Z"/>
+
+  <!-- ===== 関東（強調） ===== -->
+  <!-- 茨城 -->
+  <path class="kanto" d="M 298 175 L 318 170 L 328 182 L 325 200 L 310 208 L 295 202 L 288 188 L 290 177 Z"/>
+  <!-- 栃木 -->
+  <path class="kanto" d="M 272 172 L 294 168 L 298 182 L 290 198 L 272 200 L 260 190 L 260 176 Z"/>
+  <!-- 群馬 -->
+  <path class="kanto" d="M 248 170 L 268 168 L 274 180 L 268 196 L 250 198 L 238 186 L 240 172 Z"/>
+  <!-- 埼玉 -->
+  <path class="kanto" d="M 255 200 L 272 198 L 290 200 L 292 215 L 278 222 L 258 220 L 248 210 Z"/>
+  <!-- 千葉 -->
+  <path class="kanto" d="M 295 205 L 325 202 L 340 215 L 342 235 L 328 248 L 308 250 L 295 238 L 290 220 Z"/>
+  <!-- 東京 -->
+  <path class="kanto" d="M 258 220 L 278 220 L 292 222 L 292 238 L 275 244 L 255 240 L 248 228 Z"/>
+  <!-- 神奈川 -->
+  <path class="kanto" d="M 248 240 L 268 242 L 290 240 L 296 255 L 280 265 L 255 262 L 240 252 Z"/>
+  <!-- 山梨（関東近隣） -->
+  <path class="kanto-near" d="M 222 215 L 248 210 L 252 228 L 244 248 L 225 248 L 210 236 L 212 220 Z"/>
+
+  <!-- 関東ラベル -->
+  <text class="kanto-label" x="290" y="218">関東</text>
+  <text class="kanto-label" x="290" y="232">エリア</text>
+
+  <!-- 都道府県ラベル -->
+  <text class="pref-label" x="310" y="190">茨城</text>
+  <text class="pref-label" x="278" y="186">栃木</text>
+  <text class="pref-label" x="256" y="184">群馬</text>
+  <text class="pref-label" x="272" y="210">埼玉</text>
+  <text class="pref-label" x="316" y="228">千葉</text>
+  <text class="pref-label" x="272" y="232">東京</text>
+  <text class="pref-label" x="268" y="252">神奈川</text>
+  <text class="pref-label" x="230" y="232">山梨</text>
+
+  <!-- ===== 中部 ===== -->
+  <!-- 新潟 -->
+  <path class="pref-base" d="M 205 148 L 240 142 L 252 155 L 248 170 L 230 175 L 208 170 L 196 158 Z"/>
+  <!-- 長野 -->
+  <path class="pref-base" d="M 205 172 L 235 168 L 242 185 L 235 205 L 215 210 L 198 198 L 196 180 Z"/>
+  <!-- 静岡 -->
+  <path class="pref-base" d="M 215 265 L 248 260 L 258 275 L 248 292 L 225 295 L 205 285 L 205 270 Z"/>
+  <!-- 愛知 -->
+  <path class="pref-base" d="M 185 272 L 208 268 L 215 282 L 208 298 L 188 300 L 172 290 L 172 276 Z"/>
+  <!-- 岐阜 -->
+  <path class="pref-base" d="M 182 240 L 210 235 L 218 250 L 212 268 L 190 270 L 172 260 L 170 245 Z"/>
+  <!-- 富山 -->
+  <path class="pref-base" d="M 185 195 L 210 190 L 218 205 L 210 220 L 190 222 L 175 212 L 175 198 Z"/>
+  <!-- 石川 -->
+  <path class="pref-base" d="M 162 198 L 182 195 L 185 210 L 178 225 L 160 228 L 148 218 L 148 204 Z"/>
+  <!-- 福井 -->
+  <path class="pref-base" d="M 155 228 L 175 225 L 180 240 L 172 255 L 155 258 L 140 248 L 140 234 Z"/>
+  <!-- 山梨ラベル -->
+
+  <!-- ===== 近畿 ===== -->
+  <!-- 滋賀 -->
+  <path class="pref-base" d="M 148 258 L 168 255 L 175 268 L 168 282 L 150 285 L 136 275 L 136 262 Z"/>
+  <!-- 京都 -->
+  <path class="pref-base" d="M 130 255 L 152 250 L 158 265 L 150 280 L 132 282 L 118 272 L 118 258 Z"/>
+  <!-- 大阪 -->
+  <path class="pref-base" d="M 118 272 L 138 268 L 148 280 L 142 295 L 122 298 L 108 288 L 108 275 Z"/>
+  <!-- 兵庫 -->
+  <path class="pref-base" d="M 98 265 L 122 260 L 130 275 L 122 292 L 100 295 L 82 285 L 80 270 Z"/>
+  <!-- 奈良 -->
+  <path class="pref-base" d="M 128 285 L 148 282 L 155 295 L 148 310 L 128 312 L 115 302 L 115 288 Z"/>
+  <!-- 和歌山 -->
+  <path class="pref-base" d="M 118 305 L 138 300 L 145 315 L 138 332 L 118 335 L 102 325 L 100 310 Z"/>
+  <!-- 三重 -->
+  <path class="pref-base" d="M 148 290 L 168 285 L 178 298 L 172 318 L 152 322 L 135 312 L 135 295 Z"/>
+
+  <!-- ===== 中国 ===== -->
+  <!-- 鳥取 -->
+  <path class="pref-base" d="M 82 268 L 105 262 L 112 275 L 105 288 L 85 290 L 70 280 L 68 268 Z"/>
+  <!-- 島根 -->
+  <path class="pref-base" d="M 55 272 L 80 268 L 88 280 L 80 295 L 58 298 L 42 288 L 40 275 Z"/>
+  <!-- 岡山 -->
+  <path class="pref-base" d="M 85 290 L 108 285 L 118 298 L 112 312 L 92 315 L 75 305 L 72 292 Z"/>
+  <!-- 広島 -->
+  <path class="pref-base" d="M 60 295 L 85 290 L 92 305 L 85 320 L 62 322 L 45 312 L 42 298 Z"/>
+  <!-- 山口 -->
+  <path class="pref-base" d="M 32 305 L 58 300 L 65 315 L 58 330 L 35 332 L 18 322 L 16 308 Z"/>
+  <!-- 山口西端 -->
+  <path class="pref-base" d="M 16 310 L 35 305 L 40 318 L 32 332 L 15 335 L 5 325 L 5 312 Z"/>
+
+  <!-- ===== 四国 ===== -->
+  <!-- 香川 -->
+  <path class="pref-base" d="M 95 322 L 118 318 L 128 328 L 122 340 L 100 342 L 85 335 L 83 325 Z"/>
+  <!-- 徳島 -->
+  <path class="pref-base" d="M 118 328 L 140 322 L 150 335 L 145 350 L 125 355 L 108 345 L 108 332 Z"/>
+  <!-- 愛媛 -->
+  <path class="pref-base" d="M 65 330 L 92 325 L 100 338 L 95 355 L 72 360 L 52 350 L 48 336 Z"/>
+  <!-- 高知 -->
+  <path class="pref-base" d="M 72 355 L 100 350 L 118 358 L 115 375 L 92 380 L 68 375 L 55 362 Z"/>
+
+  <!-- ===== 九州 ===== -->
+  <!-- 福岡 -->
+  <path class="pref-base" d="M 20 322 L 45 318 L 52 330 L 45 345 L 22 348 L 8 338 L 6 325 Z"/>
+  <!-- 佐賀 -->
+  <path class="pref-base" d="M 5 335 L 25 330 L 32 342 L 25 355 L 8 358 L -5 348 L -5 338 Z"/>
+  <!-- 長崎 -->
+  <path class="pref-base" d="M -5 348 L 18 342 L 25 355 L 18 370 L 0 375 L -12 365 L -12 352 Z"/>
+  <!-- 熊本 -->
+  <path class="pref-base" d="M 22 348 L 45 342 L 52 358 L 45 375 L 22 378 L 8 368 L 6 352 Z"/>
+  <!-- 大分 -->
+  <path class="pref-base" d="M 45 332 L 68 328 L 75 342 L 68 358 L 48 360 L 32 350 L 30 336 Z"/>
+  <!-- 宮崎 -->
+  <path class="pref-base" d="M 40 372 L 62 368 L 70 382 L 65 400 L 42 405 L 25 395 L 22 378 Z"/>
+  <!-- 鹿児島 -->
+  <path class="pref-base" d="M 18 395 L 42 390 L 50 405 L 42 422 L 20 425 L 5 415 L 2 400 Z"/>
+
+  <!-- 沖縄 -->
+  <ellipse class="pref-base" cx="55" cy="468" rx="22" ry="10"/>
+  <ellipse class="pref-base" cx="30" cy="480" rx="12" ry="6"/>
+
+  <!-- ===== 地方ラベル ===== -->
+  <text class="region-label" x="295" y="52">北海道</text>
+  <text class="region-label" x="285" y="128">東北</text>
+  <text class="region-label" x="195" y="210">中部</text>
+  <text class="region-label" x="130" y="272">近畿</text>
+  <text class="region-label" x="72" y="290">中国</text>
+  <text class="region-label" x="100" y="348">四国</text>
+  <text class="region-label" x="32" y="350">九州</text>
+  <text class="region-label" x="55" y="490">沖縄</text>
+
+  <!-- 関東エリア強調の枠線（オレンジ破線） -->
+  <ellipse class="dash-circle" cx="286" cy="218" rx="78" ry="72"/>
+
+  <!-- ===== 注記テキスト ===== -->
+  <text class="note-text" x="210" y="505">関東エリアを中心に対応中</text>
+  <text class="note-sub" x="210" y="518">関東近隣の方もご相談ください</text>
+</svg>
