@@ -2377,3 +2377,76 @@ a {
   display: inline-block;
   margin-top: 6px;
 }
+
+/* ===== 通話確認モーダル ===== */
+.call-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+}
+
+.call-modal-overlay.active {
+  display: flex;
+}
+
+.call-modal-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px 24px 20px;
+  width: 88%;
+  max-width: 340px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+}
+
+.call-modal-num {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #004c8c;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+  font-family: Arial Black, sans-serif;
+}
+
+.call-modal-sub {
+  font-size: 0.78rem;
+  color: #555;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.call-modal-btns {
+  display: flex;
+  gap: 10px;
+}
+
+.call-modal-cancel {
+  flex: 1;
+  padding: 12px 0;
+  border-radius: 8px;
+  border: 2px solid #ccc;
+  background: #f5f5f5;
+  color: #666;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.call-modal-call {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 0;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ff6b00, #ff9500);
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 900;
+  text-decoration: none;
+  box-shadow: 0 3px 10px rgba(255,107,0,0.4);
+}
