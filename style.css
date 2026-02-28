@@ -2298,25 +2298,20 @@ a {
 .form-tel-input:focus { border-color: #0068b7; }
 .form-submit-btn {
   width: 100%;
-  background: linear-gradient(180deg, #ffb347 0%, #e87a00 50%, #c96000 100%);
+  background: linear-gradient(135deg, #e87a00, #ff9900);
   color: white;
   border: none;
-  border-top: 2px solid rgba(255,255,255,0.4);
-  border-bottom: 4px solid #a04800;
   border-radius: 50px;
   padding: 16px;
   font-size: 18px;
   font-weight: 900;
   cursor: pointer;
   font-family: 'Noto Sans JP', sans-serif;
-  box-shadow:
-    0 6px 0 #8a3a00,
-    0 8px 16px rgba(200,100,0,0.45);
-  transition: transform 0.1s, box-shadow 0.1s, border-bottom 0.1s;
+  box-shadow: 0 4px 12px rgba(232,122,0,0.5);
+  transition: transform 0.1s;
   margin-bottom: 12px;
   position: relative;
   overflow: hidden;
-  animation: submit-bounce 2.5s ease-in-out infinite;
 }
 .form-submit-btn::before {
   content: '';
@@ -2334,21 +2329,7 @@ a {
   pointer-events: none;
   border-radius: inherit;
 }
-.form-submit-btn:active {
-  transform: translateY(4px);
-  box-shadow: 0 2px 0 #8a3a00, 0 4px 8px rgba(200,100,0,0.3);
-  border-bottom-width: 1px;
-}
-@keyframes submit-bounce {
-  0%, 100% {
-    transform: translateY(0);
-    box-shadow: 0 6px 0 #8a3a00, 0 8px 16px rgba(200,100,0,0.45);
-  }
-  50% {
-    transform: translateY(-3px);
-    box-shadow: 0 9px 0 #8a3a00, 0 12px 20px rgba(200,100,0,0.5);
-  }
-}
+.form-submit-btn:active { transform: scale(0.98); }
 .form-disclaimer {
   font-size: 11px;
   color: #888;
@@ -2590,32 +2571,11 @@ a {
   border-radius: inherit;
 }
 
-/* 固定フッターCTAボタン */
+/* 固定フッターCTAボタン（アニメーションなし） */
 .fixed-btn-call,
 .fixed-btn-mail {
   position: relative;
   overflow: hidden;
-}
-
-.fixed-btn-call::before,
-.fixed-btn-mail::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    105deg,
-    transparent 40%,
-    rgba(255, 255, 255, 0.35) 50%,
-    transparent 60%
-  );
-  background-size: 200% 100%;
-  animation: btn-shine 3s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 1;
-  border-radius: inherit;
 }
 
 /* ヘッダーCTAボタン */
