@@ -382,13 +382,15 @@ a {
 
 /* ===== CTA BAND ===== */
 .cta-band {
-  background: linear-gradient(135deg, #003a6e, #004c8c);
+  background: #fff;
+  border-top: 3px solid #004c8c;
+  border-bottom: 3px solid #004c8c;
   padding: 16px;
   text-align: center;
 }
 
 .cta-band-title {
-  color: #fff;
+  color: #004c8c;
   font-size: 0.9rem;
   line-height: 1.5;
   margin-bottom: 10px;
@@ -396,7 +398,7 @@ a {
 
 .cta-band-title strong {
   font-size: 1.1rem;
-  color: #ffdd00;
+  color: #e63000;
 }
 
 .cta-band-info {
@@ -408,8 +410,8 @@ a {
 }
 
 .cta-band-info span {
-  background: rgba(255,255,255,0.15);
-  color: #fff;
+  background: #e8f0fa;
+  color: #004c8c;
   font-size: 0.65rem;
   padding: 3px 8px;
   border-radius: 20px;
@@ -452,7 +454,7 @@ a {
 
 .cta-band-note {
   font-size: 0.75rem;
-  color: #cce4ff;
+  color: #0068b7;
 }
 
 /* オレンジCTAボタン（2行） */
