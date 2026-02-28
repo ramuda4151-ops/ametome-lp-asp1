@@ -2312,6 +2312,7 @@ a {
   margin-bottom: 12px;
   position: relative;
   overflow: hidden;
+  animation: heroPulse 2.4s ease-in-out infinite;
 }
 .form-submit-btn::before {
   content: '';
