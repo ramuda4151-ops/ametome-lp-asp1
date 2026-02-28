@@ -475,11 +475,39 @@ a {
 }
 
 .call-line2 {
-  font-size: 1.55rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  line-height: 1;
+}
+
+/* 通話無料ボックス */
+.call-free-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  color: #ff6b00;
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1.2;
+  border-radius: 4px;
+  padding: 4px 6px;
+  min-width: 36px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* 電話番号本体 */
+.call-tel-num {
+  font-size: 1.65rem;
   font-weight: 900;
   color: #fff;
-  letter-spacing: 0.06em;
-  line-height: 1.1;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  font-family: 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* ===== UNIQUE VALUE ===== */
