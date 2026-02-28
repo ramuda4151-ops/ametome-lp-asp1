@@ -25,6 +25,25 @@
       window.toggleFormType = function(btn) {
         btn.classList.toggle('selected');
       };
+
+      // フォームバリデーション
+      window.submitForm = function(e) {
+        e.preventDefault();
+        var tel = document.getElementById('form-tel').value.trim();
+        var error = document.getElementById('form-tel-error');
+        var input = document.getElementById('form-tel');
+        // 数字8桁以上の数字のみ許可
+        var telRegex = /^[0-9]{8,13}$/;
+        if (!tel || !telRegex.test(tel.replace(/-/g, ''))) {
+          error.style.display = 'block';
+          input.style.borderColor = '#e00';
+          return;
+        }
+        error.style.display = 'none';
+        input.style.borderColor = '';
+        // サンクスページに遷移
+        window.location.href = 'thanks.html';
+      };
     });
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -110,8 +129,9 @@
       </button>
     </div>
     <p class="form-step-label">② お電話番号を入力してください</p>
-    <input type="tel" class="form-tel-input" placeholder="お電話番号（例：09012345678）" inputmode="numeric">
-    <button class="form-submit-btn">申し込む</button>
+    <input type="tel" id="form-tel" class="form-tel-input" placeholder="お電話番号（例：09012345678）" inputmode="numeric">
+    <p id="form-tel-error" class="form-tel-error" style="display:none">⚠️ 電話番号を正しく入力してください</p>
+    <button class="form-submit-btn" id="form-submit-btn" onclick="submitForm(event)">申し込む</button>
     <p class="form-disclaimer">※利用規約・プライバシーポリシーに同意の上、ご利用ください。<br>※弊社から見積りに関しご連絡させていただく場合がございます。</p>
   </div>
 </section>

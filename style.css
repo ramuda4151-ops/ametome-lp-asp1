@@ -2621,3 +2621,16 @@ a {
   z-index: 1;
   border-radius: inherit;
 }
+
+/* ===== フォームエラーメッセージ ===== */
+.form-tel-error {
+  color: #e00;
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin: -6px 0 8px;
+  padding: 4px 8px;
+  background: #fff0f0;
+  border-left: 3px solid #e00;
+  border-radius: 4px;
+  line-height: 1.5;
+}
