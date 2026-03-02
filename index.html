@@ -16,6 +16,7 @@
   <title>【公式】雨漏り修理専門のアメトメ</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script>
     // リアルタイム時刻表示
     function updateRealtimeNote() {
@@ -129,7 +130,9 @@
       };
     });
   </script>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <!-- Google Fonts 非同期読み込み（レンダリングブロッキング解消） -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap"></noscript>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
