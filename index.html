@@ -2,6 +2,13 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PG8TC7L5');</script>
+  <!-- End Google Tag Manager -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -29,6 +36,29 @@
         btn.classList.toggle('selected');
       };
 
+      // URLからIDとパラメータを取得する
+      function getLpId() {
+        // パス末尾の /xxx 部分を取得（例: /1, /lis1）
+        var path = window.location.pathname;
+        var match = path.match(/\/([a-zA-Z0-9]+)\/?$/);
+        return match ? match[1] : '';
+      }
+      function getAllParams() {
+        var params = {};
+        // URLクエリパラメータ（?gclid=xxx など）
+        var search = window.location.search;
+        if (search) {
+          search.substring(1).split('&').forEach(function(p) {
+            var kv = p.split('=');
+            if (kv[0]) params[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1] || '');
+          });
+        }
+        // lpId もパラメータとして追加
+        var lpId = getLpId();
+        if (lpId) params['lp_id'] = lpId;
+        return params;
+      }
+
       // フォームバリデーション
       window.submitForm = function(e) {
         e.preventDefault();
@@ -44,14 +74,61 @@
         }
         error.style.display = 'none';
         input.style.borderColor = '';
-        // サンクスページに遷移
-        window.location.href = 'thanks.html';
+
+        // 選択内容を取得
+        var selectedBtns = document.querySelectorAll('.form-type-btn.selected');
+        var selectedTypes = [];
+        selectedBtns.forEach(function(btn) {
+          selectedTypes.push(btn.querySelector('span:last-child').textContent.trim());
+        });
+        var selectedText = selectedTypes.length > 0 ? selectedTypes.join('、') : '未選択';
+
+        // GASエンドポイントに送信
+        var params = getAllParams();
+        var gasUrl = 'https://script.google.com/macros/s/YOUR_GAS_DEPLOYMENT_ID/exec';
+        var payload = {
+          tel: tel,
+          selected: selectedText,
+          lp_id: params['lp_id'] || '',
+          params: params,
+          timestamp: new Date().toLocaleString('ja-JP', {timeZone: 'Asia/Tokyo'})
+        };
+        // GASに非同期送信（失敗してもサンクスページには遷移）
+        try {
+          fetch(gasUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+          });
+        } catch(err) { /* 送信失敗は無視 */ }
+
+        // GTM dataLayer push（フォームCV）
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'form_cv',
+          lp_id: params['lp_id'] || '',
+          tel: tel,
+          selected: selectedText
+        });
+
+        // サンクスページに遷移（パラメータを引き継ぐ）
+        var thanksUrl = 'thanks.html';
+        var paramStr = Object.keys(params).map(function(k) {
+          return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+        }).join('&');
+        if (paramStr) thanksUrl += '?' + paramStr;
+        window.location.href = thanksUrl;
       };
     });
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PG8TC7L5"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <!-- ===== FIXED HEADER ===== -->
 <header class="fixed-header">
