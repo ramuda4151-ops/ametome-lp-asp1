@@ -15,6 +15,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>【公式】雨漏り修理専門のアメトメ</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="inquiry-form.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script>
@@ -702,6 +703,79 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<!-- ===== お問い合わせフォーム ===== -->
+<section class="inquiry-form-section" id="inquiry-form">
+  <div class="inquiry-form-inner">
+    <div class="inquiry-form-header">
+      <span class="inquiry-form-badge">無料お見積もり</span>
+      <h2 class="inquiry-form-title">お問い合わせ</h2>
+      <p class="inquiry-form-sub">内容を入力して送信してください。担当者よりご連絡いたします。</p>
+    </div>
+    <form id="inquiry-form-body" novalidate>
+      <!-- お名前 -->
+      <div class="iq-field">
+        <label class="iq-label" for="iq-name">お名前 <span class="iq-required">必須</span></label>
+        <input class="iq-input" type="text" id="iq-name" name="name" placeholder="例：山田 太郎" autocomplete="name">
+        <p class="iq-error" id="iq-name-error">お名前を入力してください</p>
+      </div>
+      <!-- 電話番号 -->
+      <div class="iq-field">
+        <label class="iq-label" for="iq-tel">電話番号 <span class="iq-required">必須</span></label>
+        <input class="iq-input" type="tel" id="iq-tel" name="tel" placeholder="例：09012345678" autocomplete="tel" inputmode="numeric">
+        <p class="iq-error" id="iq-tel-error">正しい電話番号を入力してください（8〜13桁の数字）</p>
+      </div>
+      <!-- 郵便番号 -->
+      <div class="iq-field">
+        <label class="iq-label" for="iq-zip">郵便番号 <span class="iq-required">必須</span></label>
+        <div class="iq-zip-row">
+          <input class="iq-input iq-zip-input" type="text" id="iq-zip" name="zip" placeholder="例：1234567" maxlength="8" inputmode="numeric" autocomplete="postal-code">
+          <button type="button" class="iq-zip-btn" id="iq-zip-btn">住所を検索</button>
+        </div>
+        <p class="iq-error" id="iq-zip-error">正しい郵便番号を入力してください（7桁の数字）</p>
+      </div>
+      <!-- 住所 -->
+      <div class="iq-field">
+        <label class="iq-label" for="iq-address">住所 <span class="iq-required">必須</span></label>
+        <input class="iq-input" type="text" id="iq-address" name="address" placeholder="郵便番号から自動入力されます" autocomplete="street-address">
+        <p class="iq-error" id="iq-address-error">住所を入力してください</p>
+      </div>
+      <!-- 雨漏りの状態 -->
+      <div class="iq-field">
+        <label class="iq-label" for="iq-status">雨漏りの状態 <span class="iq-optional">任意</span></label>
+        <textarea class="iq-input iq-textarea" id="iq-status" name="status" placeholder="例：2階の天井から雨の日にポタポタ落ちてきます" rows="3"></textarea>
+      </div>
+      <!-- お電話のつながりやすい時間帯 -->
+      <div class="iq-field">
+        <label class="iq-label" for="iq-time">お電話のつながりやすい時間帯 <span class="iq-optional">任意</span></label>
+        <select class="iq-input iq-select" id="iq-time" name="time">
+          <option value="">選択してください</option>
+          <option value="午前中（9:00〜12:00）">午前中（9:00〜12:00）</option>
+          <option value="昼（12:00〜15:00）">昼（12:00〜15:00）</option>
+          <option value="夕方（15:00〜18:00）">夕方（15:00〜18:00）</option>
+          <option value="夜（18:00〜21:00）">夜（18:00〜21:00）</option>
+          <option value="いつでも可">いつでも可</option>
+        </select>
+      </div>
+      <!-- お写真 -->
+      <div class="iq-field">
+        <label class="iq-label" for="iq-photo">お写真 <span class="iq-optional">任意</span></label>
+        <label class="iq-file-label" for="iq-photo">
+          <span class="iq-file-icon">📷</span>
+          <span id="iq-file-name">ファイルを選択（複数可）</span>
+          <input class="iq-file-input" type="file" id="iq-photo" name="photo" accept="image/*" multiple>
+        </label>
+        <p class="iq-file-hint">雨漏り箇所の写真があると診断がスムーズです</p>
+      </div>
+      <!-- 送信ボタン -->
+      <button type="submit" class="iq-submit-btn" id="iq-submit-btn">
+        <span>まずは無料お見積もり</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <p class="iq-disclaimer">※利用規約・<a href="privacy.html">プライバシーポリシー</a>に同意の上、ご利用ください。</p>
+    </form>
+  </div>
+</section>
+
 <!-- ===== FOOTER ===== -->
 <footer class="footer">
   <div class="footer-logo">
@@ -753,6 +827,148 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 </div>
+
+<script>
+// ===== お問い合わせフォーム処理 =====
+(function() {
+  // 郵便番号から住所を自動入力
+  function fetchAddress(zip) {
+    var clean = zip.replace(/[^0-9]/g, '');
+    if (clean.length !== 7) return;
+    fetch('https://zipcloud.ibsnet.co.jp/api/search?zipcode=' + clean)
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.results && data.results[0]) {
+          var r = data.results[0];
+          var addr = r.address1 + r.address2 + r.address3;
+          document.getElementById('iq-address').value = addr;
+          document.getElementById('iq-address-error').style.display = 'none';
+        }
+      })
+      .catch(function() {});
+  }
+
+  document.getElementById('iq-zip').addEventListener('input', function() {
+    var v = this.value.replace(/[^0-9]/g, '');
+    if (v.length === 7) fetchAddress(v);
+  });
+  document.getElementById('iq-zip-btn').addEventListener('click', function() {
+    fetchAddress(document.getElementById('iq-zip').value);
+  });
+
+  // ファイル選択時にファイル名を表示
+  document.getElementById('iq-photo').addEventListener('change', function() {
+    var files = this.files;
+    var label = document.getElementById('iq-file-name');
+    if (files.length === 0) {
+      label.textContent = 'ファイルを選択（複数可）';
+    } else if (files.length === 1) {
+      label.textContent = files[0].name;
+    } else {
+      label.textContent = files.length + '枚選択中';
+    }
+  });
+
+  // フォーム送信処理
+  document.getElementById('inquiry-form-body').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var valid = true;
+
+    // お名前バリデーション
+    var name = document.getElementById('iq-name').value.trim();
+    var nameErr = document.getElementById('iq-name-error');
+    if (!name) {
+      nameErr.style.display = 'block';
+      document.getElementById('iq-name').style.borderColor = '#e00';
+      valid = false;
+    } else {
+      nameErr.style.display = 'none';
+      document.getElementById('iq-name').style.borderColor = '';
+    }
+
+    // 電話番号バリデーション
+    var tel = document.getElementById('iq-tel').value.trim();
+    var telErr = document.getElementById('iq-tel-error');
+    if (!tel || !/^[0-9]{8,13}$/.test(tel.replace(/-/g, ''))) {
+      telErr.style.display = 'block';
+      document.getElementById('iq-tel').style.borderColor = '#e00';
+      valid = false;
+    } else {
+      telErr.style.display = 'none';
+      document.getElementById('iq-tel').style.borderColor = '';
+    }
+
+    // 郵便番号バリデーション
+    var zip = document.getElementById('iq-zip').value.trim();
+    var zipErr = document.getElementById('iq-zip-error');
+    if (!zip || !/^[0-9]{7}$/.test(zip.replace(/-/g, ''))) {
+      zipErr.style.display = 'block';
+      document.getElementById('iq-zip').style.borderColor = '#e00';
+      valid = false;
+    } else {
+      zipErr.style.display = 'none';
+      document.getElementById('iq-zip').style.borderColor = '';
+    }
+
+    // 住所バリデーション
+    var address = document.getElementById('iq-address').value.trim();
+    var addrErr = document.getElementById('iq-address-error');
+    if (!address) {
+      addrErr.style.display = 'block';
+      document.getElementById('iq-address').style.borderColor = '#e00';
+      valid = false;
+    } else {
+      addrErr.style.display = 'none';
+      document.getElementById('iq-address').style.borderColor = '';
+    }
+
+    if (!valid) return;
+
+    // URLパラメータ取得
+    var params = {};
+    if (window.location.search) {
+      window.location.search.substring(1).split('&').forEach(function(p) {
+        var kv = p.split('=');
+        if (kv[0]) params[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1] || '');
+      });
+    }
+
+    // GASに送信（既存のWebhook URLを使用）
+    var gasUrl = 'https://script.google.com/macros/s/AKfycbwdZCORHURgpfuGxGeMfXImXJlnqI2vfOSLsFdNXRNl2OGJbUVZSeK9naMUiF6EE9Xb/exec';
+    var payload = {
+      form_type: 'inquiry',
+      name: name,
+      tel: tel,
+      zip: zip,
+      address: address,
+      status: document.getElementById('iq-status').value.trim(),
+      time: document.getElementById('iq-time').value,
+      params: params,
+      timestamp: new Date().toLocaleString('ja-JP', {timeZone: 'Asia/Tokyo'})
+    };
+    try {
+      fetch(gasUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+      });
+    } catch(err) {}
+
+    // dataLayer push
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'inquiry_cv', tel: tel });
+
+    // サンクスページへ遷移
+    var thanksUrl = 'thanks.html';
+    var paramStr = Object.keys(params).map(function(k) {
+      return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+    }).join('&');
+    if (paramStr) thanksUrl += '?' + paramStr;
+    window.location.href = thanksUrl;
+  });
+})();
+</script>
 
 <script>
 (function() {
