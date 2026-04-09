@@ -10,11 +10,11 @@
     },
     {
       "type": "src",
-      "src": "../lp1/b/js/ct3_demand.js"
+      "src": "/lp1/b/js/ct3_demand.js"
     },
     {
       "type": "src",
-      "src": "../lp1/b/js/moment.js"
+      "src": "/lp1/b/js/moment.js"
     }
   ],
   "conversion_scripts": [],
