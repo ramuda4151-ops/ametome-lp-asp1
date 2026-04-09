@@ -2266,7 +2266,7 @@ a {
 }
 .form-type-btn {
   flex: 1;
-  background: #e87a00;
+  background: #6b8fa8;
   border: none;
   border-radius: 10px;
   padding: 14px 8px;
@@ -2280,10 +2280,10 @@ a {
   color: white;
   font-family: 'Noto Sans JP', sans-serif;
   transition: opacity 0.2s, transform 0.1s;
-  box-shadow: 0 3px 8px rgba(232,122,0,0.4);
+  box-shadow: 0 3px 8px rgba(107,143,168,0.4);
 }
 .form-type-btn.selected {
-  background: #cc6600;
+  background: #4a7a9b;
   outline: 3px solid #ffd700;
 }
 .form-type-btn:active { transform: scale(0.97); }
