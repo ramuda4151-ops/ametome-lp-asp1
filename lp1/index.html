@@ -73,11 +73,11 @@
         });
       } else if (mode === 'fmcall') {
         // felmat: fmcall_atag_tel=ONによりhref="tel:..."を自動書き換え
-        // lp-tel-linkにid="fmcall"を付与してfelmatに認識させる
+        // id="fmcall"は付与しない（felmatが要素のテキストを上書きするため）
+        // hrefのみ設定し、felmatのatag_tel=ONでhrefが差し替わる
         document.querySelectorAll('.lp-tel-link').forEach(function(el) {
           if (el.tagName === 'A') {
             el.href = 'tel:' + telRaw;
-            el.id = 'fmcall';
           }
         });
       } else if (mode === 'ct3') {

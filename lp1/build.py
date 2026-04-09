@@ -56,53 +56,55 @@ def build_asp(asp_key, master_html):
       }});
     }}
 
-    // DOMContentLoaded後に電話番号表示・リンクを更新
+    // DOMContentLoaded後に電話リンクのhrefを更新
     document.addEventListener('DOMContentLoaded', function() {{
       var cfg = window.__LP_CONFIG__ || {{}};
-      var tel = cfg.tel || 'まずは電話で見積もり依頼';
       var telRaw = cfg.tel_raw || '01200940956';
       var mode = cfg.tel_mode || 'plain';
 
       if (mode === 'plain') {{
-        document.querySelectorAll('.lp-tel-display').forEach(function(el) {{
-          el.textContent = tel;
-        }});
+        // tel:リンクのhrefを更新
         document.querySelectorAll('.lp-tel-link').forEach(function(el) {{
           if (el.tagName === 'A') el.href = 'tel:' + telRaw;
         }});
       }} else if (mode === 'fmcall') {{
-        document.querySelectorAll('.lp-tel-display').forEach(function(el) {{
-          el.id = 'fmcall';
-          el.textContent = tel;
-        }});
+        // felmat: fmcall_atag_tel=ONによりhref="tel:..."を自動書き換え
+        // id="fmcall"は付与しない（felmatが要素のテキストを上書きするため）
+        // hrefのみ設定し、felmatのatag_tel=ONでhrefが差し替わる
         document.querySelectorAll('.lp-tel-link').forEach(function(el) {{
-          if (el.tagName === 'A') el.href = 'tel:' + telRaw;
+          if (el.tagName === 'A') {{
+            el.href = 'tel:' + telRaw;
+          }}
         }});
       }} else if (mode === 'ct3') {{
-        document.querySelectorAll('.lp-tel-display').forEach(function(el) {{
-          el.classList.add('ct3_telno');
-          el.textContent = '-';
-        }});
+        // レントラックス: lp-tel-linkにclass="telno"を付与、CT3がhrefを書き換え
         document.querySelectorAll('.lp-tel-link').forEach(function(el) {{
-          if (el.tagName === 'A') el.href = '#';
-          el.classList.add('telno');
+          if (el.tagName === 'A') {{
+            el.href = 'tel:' + telRaw;
+            el.classList.add('telno');
+          }}
         }});
       }}
 
-      // thanksUrlをJSONから設定
-      window.__LP_THANKS_URL__ = cfg.thanks_url || 'thanks.html';
+      // コンバージョンスクリプトを動的挿入（サンクスページ用）
+      if (cfg.conversion_scripts && cfg.conversion_scripts.length > 0) {{
+        cfg.conversion_scripts.forEach(function(s) {{
+          var el = document.createElement('script');
+          if (s.type === 'inline') {{
+            el.textContent = s.content;
+          }} else {{
+            el.src = s.src;
+            if (s.async) el.async = true;
+          }}
+          document.head.appendChild(el);
+        }});
+      }}
     }});
   }})();
   </script>
   <!-- End LP設定ローダー -->"""
 
     html = re.sub(loader_pattern, fixed_loader, html, flags=re.DOTALL)
-
-    # thanksUrlをJSONから取得するように修正
-    html = html.replace(
-        "var thanksUrl = window.__LP_CONFIG__ ? window.__LP_CONFIG__.thanks_url : 'thanks.html';",
-        "var thanksUrl = window.__LP_THANKS_URL__ || (window.__LP_CONFIG__ ? window.__LP_CONFIG__.thanks_url : 'thanks.html');"
-    )
 
     return html
 

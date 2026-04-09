@@ -6,7 +6,7 @@
   "call_tracking_scripts": [
     {
       "type": "inline",
-      "content": "var fmcall_key = 'I11242X'; var fmcall_set_id = 'fmcall'; var fmcall_span_view = 'ON'; var fmcall_atag_tel = 'ON';"
+      "content": "var fmcall_key = 'I11242X'; var fmcall_set_id = 'fmcall_none'; var fmcall_span_view = 'ON'; var fmcall_atag_tel = 'ON';"
     },
     {
       "type": "src",
