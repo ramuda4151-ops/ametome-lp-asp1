@@ -1,0 +1,22 @@
+{
+  "asp": "rentracks",
+  "tel": "-",
+  "tel_raw": "01200940956",
+  "tel_mode": "ct3",
+  "call_tracking_scripts": [
+    {
+      "type": "src",
+      "src": "https://code.jquery.com/jquery-2.2.4.min.js"
+    },
+    {
+      "type": "src",
+      "src": "../lp1/b/js/ct3_demand.js"
+    },
+    {
+      "type": "src",
+      "src": "../lp1/b/js/moment.js"
+    }
+  ],
+  "conversion_scripts": [],
+  "thanks_url": "b/thanks.html"
+}
