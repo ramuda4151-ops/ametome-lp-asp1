@@ -180,7 +180,7 @@
           selected: selectedText,
           note: note,
           lp_id: params['lp_id'] || '',
-          asp_key: aspKey,
+          asp_key: (window.__LP_CONFIG__ && window.__LP_CONFIG__.asp_key) ? window.__LP_CONFIG__.asp_key : (function(){ var m = window.location.pathname.match(/\/lp1\/([a-zA-Z0-9_-]+)\//); return m ? m[1] : 'default'; })(),
           params: params,
           timestamp: new Date().toLocaleString('ja-JP', {timeZone: 'Asia/Tokyo'})
         };
@@ -965,13 +965,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     if (!valid) return;
 
-    // URLパラメータ取得
+    // URLパラメータ取得（lp_id正規化・id除外）
     var params = {};
     if (window.location.search) {
       window.location.search.substring(1).split('&').forEach(function(p) {
         var kv = p.split('=');
         if (kv[0]) params[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1] || '');
       });
+    }
+    var _lpId = params['id'] || '';
+    if (_lpId) {
+      params['lp_id'] = _lpId;
+      delete params['id'];
     }
 
     var gasUrl = 'https://script.google.com/macros/s/AKfycbyP6VLnm8JlN_-TmXOPJRcpdS4ErZW6VkvFHa-RxxNSK6qT1RMyM4p3c4_a9cY7p8A7/exec';
@@ -983,6 +988,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       address: address,
       status: document.getElementById('iq-status').value.trim(),
       time: document.getElementById('iq-time').value,
+      lp_id: params['lp_id'] || '',
       asp_key: (window.__LP_CONFIG__ && window.__LP_CONFIG__.asp_key) ? window.__LP_CONFIG__.asp_key : (function(){ var m = window.location.pathname.match(/\/lp1\/([a-zA-Z0-9_-]+)\//); return m ? m[1] : 'default'; })(),
       params: params,
       timestamp: new Date().toLocaleString('ja-JP', {timeZone: 'Asia/Tokyo'}),
