@@ -12,25 +12,20 @@ function doPost(e) {
   try {
     var data = JSON.parse(e.postData.contents);
 
-    // 1. 写真をGoogle Driveに保存してURLリストを取得
+    // 写真をGoogle Driveに保存してURLリストを取得
     var photoUrls = [];
     if (data.photos && data.photos.length > 0) {
       photoUrls = savePhotosToDrive(data.photos, data);
     }
 
-    // 2. メッセージ本文を作成
     var messageText = createMessage(data, photoUrls);
-
-    // 3. Gmailへの通知送信
     sendGmail(messageText, data);
-
-    // 4. LINE Messaging APIへの通知送信
     sendLine(messageText);
 
-    return ContentService.createTextOutput(JSON.stringify({ status: 'success' })).setMimeType(ContentService.MimeType.JSON);
+    return ContentService.createTextOutput(JSON.stringify({ status: "success" })).setMimeType(ContentService.MimeType.JSON);
   } catch (error) {
-    console.log('エラー発生: ' + error.toString());
-    return ContentService.createTextOutput(JSON.stringify({ status: 'error', message: error.toString() })).setMimeType(ContentService.MimeType.JSON);
+    console.log("エラー発生: " + error.toString());
+    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: error.toString() })).setMimeType(ContentService.MimeType.JSON);
   }
 }
 
@@ -77,57 +72,70 @@ function savePhotosToDrive(photos, data) {
 }
 
 /**
- * 通知メッセージを作成する（LINE・Gmail共通テキスト部分）
+ * 通知メッセージを作成する
  * ※LINEは開かないと2行しか表示されないため、重要情報を先頭に配置
  */
 function createMessage(data, photoUrls) {
-  var formType = data.form_type || 'call';
-  var lpId = data.lp_id || '(IDなし)';
-  var tel = data.tel || '(電話番号なし)';
-  var timestamp = data.timestamp || new Date().toLocaleString('ja-JP', {timeZone: 'Asia/Tokyo'});
+  var lpId = data.lp_id || "(IDなし)";
+  var tel = data.tel || "(電話番号なし)";
+  var selected = data.selected || "(選択なし)";
+  var note = data.note || "";
+  var timestamp = data.timestamp || new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+  var formType = data.form_type || "call";
 
-  var message = '';
-
-  if (formType === 'inquiry') {
-    // 詳細フォーム（問い合わせフォーム）
-    message += '【アメトメ】詳細フォームCV\n';
-    message += 'TEL: ' + tel + '\n';
-    message += 'お名前: ' + (data.name || '') + '\n';
-    message += '郵便番号: ' + (data.zip || '') + '\n';
-    message += '住所: ' + (data.address || '') + '\n';
-    if (data.status) message += '雨漏り状況: ' + data.status + '\n';
-    if (data.time) message += '希望連絡時間: ' + data.time + '\n';
-  } else {
-    // 簡易フォーム（電話番号フォーム）
-    var selected = data.selected || '(選択なし)';
-    var note = data.note || '';
-    message += '【アメトメ】リスCV\n';
-    message += 'TEL: ' + tel + '\n';
-    message += '選択した内容: ' + selected + '\n';
-    if (note) message += 'その他メモ: ' + note + '\n';
+  // ASP判定（params.aspまたはlp_idのプレフィックスから判別）
+  var aspName = "";
+  if (data.params && data.params.asp) {
+    aspName = data.params.asp;
+  } else if (lpId.indexOf("a_") === 0 || lpId === "a") {
+    aspName = "a";
+  } else if (lpId.indexOf("b_") === 0 || lpId === "b") {
+    aspName = "b";
   }
 
-  message += '問い合わせ時間: ' + timestamp + '\n';
-  message += '問い合わせID: ' + lpId + '\n';
+  var message = "";
+
+  if (formType === "inquiry") {
+    message += "【アメトメ】詳細フォームCV\n";
+    message += "TEL: " + tel + "\n";
+    message += "お名前: " + (data.name || "") + "\n";
+    message += "郵便番号: " + (data.zip || "") + "\n";
+    message += "住所: " + (data.address || "") + "\n";
+    if (data.status) message += "雨漏り状況: " + data.status + "\n";
+    if (data.time) message += "希望連絡時間: " + data.time + "\n";
+  } else {
+    message += "【アメトメ】リスCV\n";
+    message += "TEL: " + tel + "\n";
+    message += "選択した内容: " + selected + "\n";
+    if (note) message += "その他メモ: " + note + "\n";
+  }
+
+  message += "問い合わせ時間: " + timestamp + "\n";
+
+  // ASP・ID表示
+  if (aspName) {
+    message += "asp: " + aspName + "\n";
+  }
+  message += "ID: " + lpId + "\n";
 
   // 写真情報
   if (photoUrls && photoUrls.length > 0) {
-    message += '\n📷 写真の添付があります（' + photoUrls.length + '枚）\n';
+    message += "\n📷 写真の添付があります（" + photoUrls.length + "枚）\n";
     for (var i = 0; i < photoUrls.length; i++) {
-      message += '写真' + (i + 1) + ': ' + photoUrls[i].url + '\n';
+      message += "写真" + (i + 1) + ": " + photoUrls[i].url + "\n";
     }
   }
 
-  // その他パラメータ
-  message += '\nその他タグ:\n';
+  // その他タグ
+  message += "\nその他タグ:\n";
   if (data.params && Object.keys(data.params).length > 0) {
     for (var key in data.params) {
-      if (key !== 'lp_id') {
-        message += key + ': ' + data.params[key] + '\n';
+      if (key !== "lp_id" && key !== "asp") {
+        message += key + ": " + data.params[key] + "\n";
       }
     }
   } else {
-    message += '(パラメータなし)\n';
+    message += "(パラメータなし)\n";
   }
 
   return message;
@@ -137,15 +145,15 @@ function createMessage(data, photoUrls) {
  * Gmailに通知を送信する
  */
 function sendGmail(messageText, data) {
-  var email = 'ametome.official@gmail.com';
-  var formType = data ? (data.form_type || 'call') : 'call';
-  var subject = formType === 'inquiry'
-    ? '【アメトメ】詳細フォームからお問い合わせがありました'
-    : '【アメトメ】新規お問い合わせがありました';
+  var email = "ametome.official@gmail.com";
+  var formType = data ? (data.form_type || "call") : "call";
+  var subject = formType === "inquiry"
+    ? "【アメトメ】詳細フォームからお問い合わせがありました"
+    : "【アメトメ】新規お問い合わせがありました";
   try {
     GmailApp.sendEmail(email, subject, messageText);
   } catch (e) {
-    console.log('Gmail送信エラー: ' + e.toString());
+    console.log("Gmail送信エラー: " + e.toString());
   }
 }
 
@@ -153,30 +161,26 @@ function sendGmail(messageText, data) {
  * LINEグループに通知を送信する
  */
 function sendLine(messageText) {
-  var channelAccessToken = 'ZWODUF58G3ocE8g3NQ2hnyiI4iUkaunGosz+9V+DRK3Our5nbyQsihFLb73gZHLlxLrlkaCY3X2scFcAOFFD4rD8kr3BwDl4gB6AYSmQ500OyGCYfWD/PDAYT+x1agIYn+7IoxogdRU05mBFC6cKYAdB04t89/1O/w1cDnyilFU=';
-  var groupId = 'Cce12474663e3936457a0270c4d82926e';
-  var url = 'https://api.line.me/v2/bot/message/push';
+  var channelAccessToken = "ZWODUF58G3ocE8g3NQ2hnyiI4iUkaunGosz+9V+DRK3Our5nbyQsihFLb73gZHLlxLrlkaCY3X2scFcAOFFD4rD8kr3BwDl4gB6AYSmQ500OyGCYfWD/PDAYT+x1agIYn+7IoxogdRU05mBFC6cKYAdB04t89/1O/w1cDnyilFU=";
+  var groupId = "Cce12474663e3936457a0270c4d82926e";
+  var url = "https://api.line.me/v2/bot/message/push";
+
   var headers = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + channelAccessToken
+    "Content-Type": "application/json",
+    "Authorization": "Bearer " + channelAccessToken
   };
   var payload = {
-    'to': groupId,
-    'messages': [
-      {
-        'type': 'text',
-        'text': messageText
-      }
-    ]
+    "to": groupId,
+    "messages": [{ "type": "text", "text": messageText }]
   };
   var options = {
-    'method': 'post',
-    'headers': headers,
-    'payload': JSON.stringify(payload)
+    "method": "post",
+    "headers": headers,
+    "payload": JSON.stringify(payload)
   };
   try {
     UrlFetchApp.fetch(url, options);
   } catch (e) {
-    console.log('LINE送信エラー: ' + e.toString());
+    console.log("LINE送信エラー: " + e.toString());
   }
 }
