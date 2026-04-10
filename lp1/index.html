@@ -909,22 +909,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </a>
 </div>
 
-<!-- ===== 通話確認モーダル ===== -->
-<div id="call-modal" class="call-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="call-modal-title">
-  <div class="call-modal-box">
-    <p class="call-modal-num" id="call-modal-title">まずは電話で見積もり依頼</p>
-    <p class="call-modal-sub">業界初！雨漏り診断士が直接対応</p>
-    <div class="call-modal-btns">
-      <button class="call-modal-cancel" id="call-modal-cancel">キャンセル</button>
-      <a href="tel:01200940956" class="call-modal-call lp-tel-link" id="call-modal-call">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="white" style="vertical-align:middle;margin-right:4px;">
-          <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-        </svg>
-        無料相談
-      </a>
-    </div>
-  </div>
-</div>
 
 <script>
 // ===== お問い合わせフォーム処理 =====
@@ -1068,58 +1052,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 })();
 </script>
 
-<script>
-(function() {
-  var modal = document.getElementById('call-modal');
-  var cancelBtn = document.getElementById('call-modal-cancel');
-  var callBtn = document.getElementById('call-modal-call');
-
-  // 通話モーダルを開く
-  function openCallModal(e) {
-    e.preventDefault();
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  // 通話モーダルを閉じる
-  function closeCallModal() {
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  // 「かける」ボタンクリック時：CVタグ発火後に発信
-  callBtn.addEventListener('click', function() {
-    // Google広告 CVタグ発火（gtagが読み込まれている場合）
-    if (typeof gtag === 'function') {
-      gtag('event', 'conversion', {
-        'send_to': 'AW-XXXXXXXXXX/XXXXXXXXXXXXXXXXXX' // タグ発火時に実際のIDに変更してください
-      });
-    }
-    // dataLayerプッシュ（GTM経由の場合）
-    if (typeof dataLayer !== 'undefined') {
-      dataLayer.push({ event: 'call_cv' });
-    }
-    closeCallModal();
-  });
-
-  // キャンセルボタン
-  cancelBtn.addEventListener('click', closeCallModal);
-
-  // オーバーレイクリックで閉じる
-  modal.addEventListener('click', function(e) {
-    if (e.target === modal) closeCallModal();
-  });
-
-  // 全ての tel: リンクにモーダルを挿入（call-modal-call自身は除外）
-  document.addEventListener('DOMContentLoaded', function() {
-    var telLinks = document.querySelectorAll('.lp-tel-link');
-    telLinks.forEach(function(link) {
-      if (link.id === 'call-modal-call') return; // モーダル内のボタンは除外
-      link.addEventListener('click', openCallModal);
-    });
-  });
-})();
-</script>
 
 </body>
 </html>
