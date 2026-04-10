@@ -18,7 +18,6 @@
   </script>
   <script type='text/javascript' src='https://js.felmat.net/fmcall.js' async></script>
   <!-- End felmat コールトラッキング -->
-  <!-- TODO: felmat フォームCVコンバージョンタグをここに設置 -->
   <link rel="icon" type="image/x-icon" href="../../favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
@@ -134,6 +133,18 @@
   </style>
 </head>
 <body>
+<!-- felmat CVタグ（body直後） -->
+<script>
+  // uqidにタイムスタンプ+ランダム値を設定してユニーク性を確保
+  (function() {
+    var uqid = Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    var el = document.createElement('script');
+    el.type = 'text/javascript';
+    el.src = 'https://js.felmat.net/fmcv.js?adid=I11242X&uqid=' + encodeURIComponent(uqid);
+    document.head.appendChild(el);
+  })();
+</script>
+<!-- End felmat CVタグ -->
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PG8TC7L5"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

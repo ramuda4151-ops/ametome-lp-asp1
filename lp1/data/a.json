@@ -12,6 +12,11 @@
       "type": "src",
       "src": "https://js.felmat.net/fmcall.js",
       "async": true
+    },
+    {
+      "type": "src",
+      "src": "https://js.crossees.com/csslp.js",
+      "async": true
     }
   ],
   "conversion_scripts": [],
