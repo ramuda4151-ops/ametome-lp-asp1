@@ -83,9 +83,11 @@ function createMessage(data, photoUrls) {
   var timestamp = data.timestamp || new Date().toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
   var formType = data.form_type || "call";
 
-  // ASP判定（params.aspまたはlp_idのプレフィックスから判別）
+  // ASP判定（asp_keyフィールドまたはparams.aspから判別）
   var aspName = "";
-  if (data.params && data.params.asp) {
+  if (data.asp_key && data.asp_key !== 'default') {
+    aspName = data.asp_key;
+  } else if (data.params && data.params.asp) {
     aspName = data.params.asp;
   } else if (lpId.indexOf("a_") === 0 || lpId === "a") {
     aspName = "a";
