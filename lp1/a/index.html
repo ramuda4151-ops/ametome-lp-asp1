@@ -840,7 +840,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <label class="iq-label" for="iq-photo">お写真 <span class="iq-optional">任意</span></label>
         <label class="iq-file-label" for="iq-photo">
           <span class="iq-file-icon">📷</span>
-          <span id="iq-file-name">ファイルを選択（複数可）</span>
+          <span id="iq-file-name">ファイルを選択（5枚まで）</span>
           <input class="iq-file-input" type="file" id="iq-photo" name="photo" accept="image/*" multiple>
         </label>
         <p class="iq-file-hint">雨漏り箇所の写真があると診断がスムーズです</p>
@@ -921,12 +921,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   // ファイル選択時にファイル名・サイズチェック表示
   var MAX_FILE_SIZE = 10 * 1024 * 1024; // 1枚10MB
-  var MAX_TOTAL_SIZE = 20 * 1024 * 1024; // 合計20MB
+  var MAX_TOTAL_SIZE = 20 * 1024 * 1024; // 合記20MB
+  var MAX_FILE_COUNT = 5; // 最大5枚
   document.getElementById('iq-photo').addEventListener('change', function() {
     var files = this.files;
     var label = document.getElementById('iq-file-name');
     var totalSize = 0;
     var oversized = [];
+    if (files.length > MAX_FILE_COUNT) {
+      alert('写真は最大5枚まで添付できます。');
+      this.value = '';
+      label.textContent = 'ファイルを選択（5枚まで）';
+      return;
+    }
     for (var i = 0; i < files.length; i++) {
       totalSize += files[i].size;
       if (files[i].size > MAX_FILE_SIZE) oversized.push(files[i].name);
@@ -934,17 +941,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if (oversized.length > 0) {
       alert('1枚あたり10MB以下の画像を選択してください。\n超過ファイル: ' + oversized.join(', '));
       this.value = '';
-      label.textContent = 'ファイルを選択（複数可）';
+      label.textContent = 'ファイルを選択（5枚まで）';
       return;
     }
     if (totalSize > MAX_TOTAL_SIZE) {
       alert('写真の合計サイズが20MBを超えています。枚数を減らしてください。');
       this.value = '';
-      label.textContent = 'ファイルを選択（複数可）';
+      label.textContent = 'ファイルを選択（5枚まで）';
       return;
     }
     if (files.length === 0) {
-      label.textContent = 'ファイルを選択（複数可）';
+      label.textContent = 'ファイルを選択（5枚まで）';
     } else if (files.length === 1) {
       label.textContent = files[0].name;
     } else {
