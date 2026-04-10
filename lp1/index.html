@@ -938,10 +938,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     fetchAddress(document.getElementById('iq-zip').value);
   });
 
-  // ファイル選択時にファイル名を表示
+  // ファイル選択時にファイル名・サイズチェック表示
+  var MAX_FILE_SIZE = 10 * 1024 * 1024; // 1枚10MB
+  var MAX_TOTAL_SIZE = 20 * 1024 * 1024; // 合計20MB
   document.getElementById('iq-photo').addEventListener('change', function() {
     var files = this.files;
     var label = document.getElementById('iq-file-name');
+    var totalSize = 0;
+    var oversized = [];
+    for (var i = 0; i < files.length; i++) {
+      totalSize += files[i].size;
+      if (files[i].size > MAX_FILE_SIZE) oversized.push(files[i].name);
+    }
+    if (oversized.length > 0) {
+      alert('1枚あたり10MB以下の画像を選択してください。\n超過ファイル: ' + oversized.join(', '));
+      this.value = '';
+      label.textContent = 'ファイルを選択（複数可）';
+      return;
+    }
+    if (totalSize > MAX_TOTAL_SIZE) {
+      alert('写真の合計サイズが20MBを超えています。枚数を減らしてください。');
+      this.value = '';
+      label.textContent = 'ファイルを選択（複数可）';
+      return;
+    }
     if (files.length === 0) {
       label.textContent = 'ファイルを選択（複数可）';
     } else if (files.length === 1) {
@@ -1015,7 +1035,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       });
     }
 
-    // GASに送信（既存のWebhook URLを使用）
     var gasUrl = 'https://script.google.com/macros/s/AKfycbwdZCORHURgpfuGxGeMfXImXJlnqI2vfOSLsFdNXRNl2OGJbUVZSeK9naMUiF6EE9Xb/exec';
     var payload = {
       form_type: 'inquiry',
@@ -1026,27 +1045,63 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       status: document.getElementById('iq-status').value.trim(),
       time: document.getElementById('iq-time').value,
       params: params,
-      timestamp: new Date().toLocaleString('ja-JP', {timeZone: 'Asia/Tokyo'})
+      timestamp: new Date().toLocaleString('ja-JP', {timeZone: 'Asia/Tokyo'}),
+      photos: [] // Base64エンコードした写真データ
     };
-    try {
-      fetch(gasUrl, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(payload)
-      });
-    } catch(err) {}
 
-    // dataLayer push
+    // dataLayer push（先に実行してCV計測を確実に）
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event: 'inquiry_cv', tel: tel });
 
-    // サンクスページへ遷移
+    // サンクスページへ遷移（GAS送信はバックグラウンドで実行）
     var thanksUrl = window.__LP_CONFIG__ ? window.__LP_CONFIG__.thanks_url : 'thanks.html';
     var paramStr = Object.keys(params).map(function(k) {
       return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
     }).join('&');
     if (paramStr) thanksUrl += '?' + paramStr;
+
+    // 写真をBase64エンコードしてGASに送信
+    var photoFiles = document.getElementById('iq-photo').files;
+    if (photoFiles && photoFiles.length > 0) {
+      var readers = [];
+      var readCount = 0;
+      for (var pi = 0; pi < photoFiles.length; pi++) {
+        (function(file) {
+          var reader = new FileReader();
+          reader.onload = function(ev) {
+            payload.photos.push({
+              name: file.name,
+              type: file.type,
+              data: ev.target.result // "data:image/jpeg;base64,..."
+            });
+            readCount++;
+            if (readCount === photoFiles.length) {
+              // 全ファイル読み込み完了後に送信
+              try {
+                fetch(gasUrl, {
+                  method: 'POST',
+                  mode: 'no-cors',
+                  headers: {'Content-Type': 'application/json'},
+                  body: JSON.stringify(payload)
+                });
+              } catch(err) {}
+            }
+          };
+          reader.readAsDataURL(file);
+        })(photoFiles[pi]);
+      }
+    } else {
+      // 写真なしの場合はそのまま送信
+      try {
+        fetch(gasUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        });
+      } catch(err) {}
+    }
+
     window.location.href = thanksUrl;
   });
 })();
