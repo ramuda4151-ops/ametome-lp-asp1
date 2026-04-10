@@ -93,13 +93,10 @@ function createMessage(data, photoUrls) {
     aspName = "b";
   }
 
-  // ASPラベル（タイトルに埋め込む）
-  var aspLabel = aspName ? "(" + aspName + "リス)" : "";
-
   var message = "";
 
   if (formType === "inquiry") {
-    message += "【アメトメ】" + aspLabel + "詳細フォームCV\n";
+    message += "【アメトメ】詳細フォームCV\n";
     message += "お名前: " + (data.name || "") + "\n";
     message += "TEL: " + tel + "\n";
     message += "郵便番号: " + (data.zip || "") + "\n";
@@ -107,7 +104,7 @@ function createMessage(data, photoUrls) {
     if (data.status) message += "雨漏り状況: " + data.status + "\n";
     if (data.time) message += "希望連絡時間: " + data.time + "\n";
   } else {
-    message += "【アメトメ】" + aspLabel + "10秒CV\n";
+    message += "【アメトメ】10秒CV\n";
     message += "TEL: " + tel + "\n";
     message += "選択した内容: " + selected + "\n";
     if (note) message += "その他メモ: " + note + "\n";
