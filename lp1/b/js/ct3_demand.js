@@ -17,36 +17,28 @@ $(window).on('load', function() {
           vars          : 通話ログに表示したい任意の変数と値をオブジェクトの形で指定してください。
 
         ###################################################################*/
-        // RT ctパラメータ取得
+        //RT ctパラメータ取得
         var __rt_match = RegExp('[?&]' + 'ct' + '=([^&]*)').exec(window.location.search);
-        var __rt_ct = __rt_match && decodeURIComponent(__rt_match[1].replace(/\+/g, ' '));
-        if (__rt_ct) { __rt_ct = __rt_ct.replace('.', '_'); }
+		var __rt_ct = __rt_match && decodeURIComponent(__rt_match[1].replace(/\+/g, ' '));
+        if(__rt_ct){__rt_ct = __rt_ct.replace('.', '_');}
 
         var def_telno = "0120094956";
         var baseurl = "https://dyn.calltracker.jp/ct/3.0a/dialins/demand_upsert/";
         var partner_id = "5b4ea9f99dfb1efd72a67ac1";
+
         var client_id = "6973212d3995bb710483ca98";
+
         var demand_key = "demand0078";
-        var exp_at = moment.utc().add(24, "h").format();
+        var exp_at = moment.utc().add(24, "h").format(); // ## 番号有効期限を現在時刻。24時間を標準とします。
+        var dialinID = __rt_ct + '_' + client_id;
         var phone = "";
         var fw_enable = true;
+        var vars = {
+            "attr01": __rt_ct,
+        };
         ///// paramater settings ここまで /////
 
-        // 個人情報保護のため、ctパラメータをSHA-256でハッシュ化してdialinIDを生成
-        function sha256(str) {
-            if (!str) return Promise.resolve('');
-            var msgBuffer = new TextEncoder().encode(str);
-            return crypto.subtle.digest('SHA-256', msgBuffer).then(function(hashBuffer) {
-                var hashArray = Array.from(new Uint8Array(hashBuffer));
-                return hashArray.map(function(b) { return b.toString(16).padStart(2, '0'); }).join('');
-            });
-        }
 
-        sha256(__rt_ct || '').then(function(hashedCt) {
-            var dialinID = hashedCt + '_' + client_id;
-            var vars = {
-                "attr01": hashedCt  // ハッシュ化済みの値を記録
-            };
 
         $.ajax({
             timeout: 4000,
@@ -94,6 +86,5 @@ $(window).on('load', function() {
             },
             complete: function(XMLHttpRequest, textStatus) {}
         });
-        }); // sha256 Promise end
     } else {}
 });
