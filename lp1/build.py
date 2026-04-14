@@ -2,6 +2,7 @@
 """
 lp1/build.py
 マスターHTML（lp1/index.html）をベースに、各ASPディレクトリのindex.htmlを生成するスクリプト。
+JSONの内容をビルド時に直接<head>に焼き込むため、実行時のJSONフェッチが不要。
 
 使い方:
   cd /home/ubuntu/ametome-lp-asp1/lp1
@@ -13,95 +14,78 @@ git add . && git commit && git push するだけで全ASPに反映される。
 
 import os
 import re
+import json
 
 MASTER_PATH = os.path.join(os.path.dirname(__file__), 'index.html')
+DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 ASP_DIRS = ['a', 'b']  # 追加するASPはここに追記するだけ
 
-def build_asp(asp_key, master_html):
-    """マスターHTMLからASP別HTMLを生成する"""
-    html = master_html
+def build_call_tracking_scripts_html(scripts):
+    """call_tracking_scriptsリストからHTMLの<script>タグ群を生成する"""
+    lines = []
+    for s in scripts:
+        if s.get('type') == 'inline':
+            lines.append(f'  <script>{s["content"]}</script>')
+        elif s.get('type') == 'src':
+            async_attr = ' async' if s.get('async') else ''
+            lines.append(f'  <script src="{s["src"]}"{async_attr}></script>')
+    return '\n'.join(lines)
 
-    # LP設定ローダーのaspKeyを固定値に書き換える（JSONフェッチ不要にする）
-    # 元のローダーをASP固定版に置き換え
-    loader_pattern = r'<!-- LP設定ローダー.*?<!-- End LP設定ローダー -->'
-    fixed_loader = f"""  <!-- LP設定ローダー（ASP: {asp_key}） -->
-  <script>
-  (function() {{
-    var aspKey = '{asp_key}';
-    var base = '/lp1/';
+def build_tel_mode_script(config):
+    """tel_modeに応じた電話リンク書き換えスクリプトを生成する"""
+    tel_raw = config.get('tel_raw', '01200940956')
+    mode = config.get('tel_mode', 'plain')
 
-    // JSONを同期的に取得
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', base + 'data/' + aspKey + '.json', false);
-    try {{ xhr.send(); }} catch(e) {{}}
-
-    var config = {{}};
-    if (xhr.status === 200) {{
-      try {{ config = JSON.parse(xhr.responseText); }} catch(e) {{}}
-    }}
-
-    window.__LP_CONFIG__ = config;
-
-    // コールトラッキングスクリプトを動的挿入
-    if (config.call_tracking_scripts && config.call_tracking_scripts.length > 0) {{
-      config.call_tracking_scripts.forEach(function(s) {{
-        var el = document.createElement('script');
-        if (s.type === 'inline') {{
-          el.textContent = s.content;
-        }} else {{
-          el.src = s.src;
-          if (s.async) el.async = true;
-        }}
-        document.currentScript.parentNode.insertBefore(el, document.currentScript.nextSibling);
-      }});
-    }}
-
-    // DOMContentLoaded後に電話リンクのhrefを更新
-    document.addEventListener('DOMContentLoaded', function() {{
-      var cfg = window.__LP_CONFIG__ || {{}};
-      var telRaw = cfg.tel_raw || '01200940956';
-      var mode = cfg.tel_mode || 'plain';
-
-      if (mode === 'plain') {{
-        // tel:リンクのhrefを更新
-        document.querySelectorAll('.lp-tel-link').forEach(function(el) {{
-          if (el.tagName === 'A') el.href = 'tel:' + telRaw;
-        }});
-      }} else if (mode === 'fmcall') {{
-        // felmat: fmcall_atag_tel=ONによりhref="tel:..."を自動書き換え
-        // id="fmcall"は付与しない（felmatが要素のテキストを上書きするため）
-        // hrefのみ設定し、felmatのatag_tel=ONでhrefが差し替わる
-        document.querySelectorAll('.lp-tel-link').forEach(function(el) {{
-          if (el.tagName === 'A') {{
-            el.href = 'tel:' + telRaw;
-          }}
-        }});
-      }} else if (mode === 'ct3') {{
-        // レントラックス: lp-tel-linkにclass="telno"を付与、CT3がhrefを書き換え
-        document.querySelectorAll('.lp-tel-link').forEach(function(el) {{
-          if (el.tagName === 'A') {{
-            el.href = 'tel:' + telRaw;
-            el.classList.add('telno');
-          }}
-        }});
-      }}
-
-      // コンバージョンスクリプトを動的挿入（サンクスページ用）
-      if (cfg.conversion_scripts && cfg.conversion_scripts.length > 0) {{
-        cfg.conversion_scripts.forEach(function(s) {{
-          var el = document.createElement('script');
-          if (s.type === 'inline') {{
-            el.textContent = s.content;
-          }} else {{
-            el.src = s.src;
-            if (s.async) el.async = true;
-          }}
-          document.head.appendChild(el);
-        }});
+    if mode == 'plain':
+        return f"""  <script>
+  document.addEventListener('DOMContentLoaded', function() {{
+    document.querySelectorAll('.lp-tel-link').forEach(function(el) {{
+      if (el.tagName === 'A') el.href = 'tel:{tel_raw}';
+    }});
+  }});
+  </script>"""
+    elif mode == 'fmcall':
+        return f"""  <script>
+  document.addEventListener('DOMContentLoaded', function() {{
+    document.querySelectorAll('.lp-tel-link').forEach(function(el) {{
+      if (el.tagName === 'A') el.href = 'tel:{tel_raw}';
+    }});
+  }});
+  </script>"""
+    elif mode == 'ct3':
+        return f"""  <script>
+  document.addEventListener('DOMContentLoaded', function() {{
+    document.querySelectorAll('.lp-tel-link').forEach(function(el) {{
+      if (el.tagName === 'A') {{
+        el.href = 'tel:{tel_raw}';
+        el.classList.add('telno');
       }}
     }});
-  }})();
-  </script>
+  }});
+  </script>"""
+    return ''
+
+def build_asp(asp_key, master_html, config):
+    """マスターHTMLからASP別HTMLを生成する（JSON焼き込み方式）"""
+    html = master_html
+
+    # コールトラッキングスクリプトのHTMLを生成
+    ct_scripts_html = build_call_tracking_scripts_html(
+        config.get('call_tracking_scripts', [])
+    )
+
+    # tel_modeスクリプトを生成
+    tel_mode_script = build_tel_mode_script(config)
+
+    # window.__LP_CONFIG__をインラインで設定（GASフォーム送信等で参照するため残す）
+    config_json = json.dumps(config, ensure_ascii=False)
+
+    # LP設定ローダー全体をビルド時焼き込み版に置き換え
+    loader_pattern = r'<!-- LP設定ローダー.*?<!-- End LP設定ローダー -->'
+    fixed_loader = f"""  <!-- LP設定ローダー（ASP: {asp_key}） -->
+  <script>window.__LP_CONFIG__ = {config_json};</script>
+{ct_scripts_html}
+{tel_mode_script}
   <!-- End LP設定ローダー -->"""
 
     html = re.sub(loader_pattern, fixed_loader, html, flags=re.DOTALL)
@@ -115,11 +99,16 @@ def main():
     base_dir = os.path.dirname(MASTER_PATH)
 
     for asp_key in ASP_DIRS:
+        # JSONを読み込む
+        json_path = os.path.join(DATA_DIR, f'{asp_key}.json')
+        with open(json_path, 'r', encoding='utf-8') as f:
+            config = json.load(f)
+
         asp_dir = os.path.join(base_dir, asp_key)
         os.makedirs(asp_dir, exist_ok=True)
         output_path = os.path.join(asp_dir, 'index.html')
 
-        built_html = build_asp(asp_key, master_html)
+        built_html = build_asp(asp_key, master_html, config)
 
         with open(output_path, 'w', encoding='utf-8') as f:
             f.write(built_html)

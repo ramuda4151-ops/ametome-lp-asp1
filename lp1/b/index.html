@@ -10,82 +10,21 @@
   })(window,document,'script','dataLayer','GTM-PG8TC7L5');</script>
   <!-- End Google Tag Manager -->
     <!-- LP設定ローダー（ASP: b） -->
+  <script>window.__LP_CONFIG__ = {"asp": "rentracks", "tel": "-", "tel_raw": "01200940956", "tel_mode": "ct3", "call_tracking_scripts": [{"type": "src", "src": "https://code.jquery.com/jquery-2.2.4.min.js"}, {"type": "src", "src": "/lp1/b/js/ct3_demand.js"}, {"type": "src", "src": "/lp1/b/js/moment.js"}, {"type": "inline", "content": "(function(callback){var script=document.createElement('script');script.type='text/javascript';script.src='https://www.rentracks.jp/js/itp/rt.track.js?t='+(new Date()).getTime();if(script.readyState){script.onreadystatechange=function(){if(script.readyState==='loaded'||script.readyState==='complete'){script.onreadystatechange=null;callback();}}}else{script.onload=function(){callback();};}document.getElementsByTagName('head')[0].appendChild(script);}(function(){}));"}, {"type": "inline", "content": "document.addEventListener('DOMContentLoaded', function() { document.querySelectorAll('.call-tel-num, .call-num-lg, .fixed-num, .tel-num').forEach(function(el) { el.classList.add('ct3_telno'); }); });"}], "conversion_scripts": [], "thanks_url": "thanks.html"};</script>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script src="/lp1/b/js/ct3_demand.js"></script>
+  <script src="/lp1/b/js/moment.js"></script>
+  <script>(function(callback){var script=document.createElement('script');script.type='text/javascript';script.src='https://www.rentracks.jp/js/itp/rt.track.js?t='+(new Date()).getTime();if(script.readyState){script.onreadystatechange=function(){if(script.readyState==='loaded'||script.readyState==='complete'){script.onreadystatechange=null;callback();}}}else{script.onload=function(){callback();};}document.getElementsByTagName('head')[0].appendChild(script);}(function(){}));</script>
+  <script>document.addEventListener('DOMContentLoaded', function() { document.querySelectorAll('.call-tel-num, .call-num-lg, .fixed-num, .tel-num').forEach(function(el) { el.classList.add('ct3_telno'); }); });</script>
   <script>
-  (function() {
-    var aspKey = 'b';
-    var base = '/lp1/';
-
-    // JSONを同期的に取得
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', base + 'data/' + aspKey + '.json', false);
-    try { xhr.send(); } catch(e) {}
-
-    var config = {};
-    if (xhr.status === 200) {
-      try { config = JSON.parse(xhr.responseText); } catch(e) {}
-    }
-
-    window.__LP_CONFIG__ = config;
-
-    // コールトラッキングスクリプトを動的挿入
-    if (config.call_tracking_scripts && config.call_tracking_scripts.length > 0) {
-      config.call_tracking_scripts.forEach(function(s) {
-        var el = document.createElement('script');
-        if (s.type === 'inline') {
-          el.textContent = s.content;
-        } else {
-          el.src = s.src;
-          if (s.async) el.async = true;
-        }
-        document.currentScript.parentNode.insertBefore(el, document.currentScript.nextSibling);
-      });
-    }
-
-    // DOMContentLoaded後に電話リンクのhrefを更新
-    document.addEventListener('DOMContentLoaded', function() {
-      var cfg = window.__LP_CONFIG__ || {};
-      var telRaw = cfg.tel_raw || '01200940956';
-      var mode = cfg.tel_mode || 'plain';
-
-      if (mode === 'plain') {
-        // tel:リンクのhrefを更新
-        document.querySelectorAll('.lp-tel-link').forEach(function(el) {
-          if (el.tagName === 'A') el.href = 'tel:' + telRaw;
-        });
-      } else if (mode === 'fmcall') {
-        // felmat: fmcall_atag_tel=ONによりhref="tel:..."を自動書き換え
-        // id="fmcall"は付与しない（felmatが要素のテキストを上書きするため）
-        // hrefのみ設定し、felmatのatag_tel=ONでhrefが差し替わる
-        document.querySelectorAll('.lp-tel-link').forEach(function(el) {
-          if (el.tagName === 'A') {
-            el.href = 'tel:' + telRaw;
-          }
-        });
-      } else if (mode === 'ct3') {
-        // レントラックス: lp-tel-linkにclass="telno"を付与、CT3がhrefを書き換え
-        document.querySelectorAll('.lp-tel-link').forEach(function(el) {
-          if (el.tagName === 'A') {
-            el.href = 'tel:' + telRaw;
-            el.classList.add('telno');
-          }
-        });
-      }
-
-      // コンバージョンスクリプトを動的挿入（サンクスページ用）
-      if (cfg.conversion_scripts && cfg.conversion_scripts.length > 0) {
-        cfg.conversion_scripts.forEach(function(s) {
-          var el = document.createElement('script');
-          if (s.type === 'inline') {
-            el.textContent = s.content;
-          } else {
-            el.src = s.src;
-            if (s.async) el.async = true;
-          }
-          document.head.appendChild(el);
-        });
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.lp-tel-link').forEach(function(el) {
+      if (el.tagName === 'A') {
+        el.href = 'tel:01200940956';
+        el.classList.add('telno');
       }
     });
-  })();
+  });
   </script>
   <!-- End LP設定ローダー -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
