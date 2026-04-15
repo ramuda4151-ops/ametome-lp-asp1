@@ -1,0 +1,25 @@
+{
+  "asp": "felmat",
+  "asp_key": "a",
+  "tel": "0120-094-956",
+  "tel_raw": "01200940956",
+  "tel_mode": "fmcall",
+  "call_tracking_scripts": [
+    {
+      "type": "inline",
+      "content": "var fmcall_key = 'I11242X'; var fmcall_set_id = 'fmcall_none'; var fmcall_span_view = 'ON'; var fmcall_atag_tel = 'ON';"
+    },
+    {
+      "type": "src",
+      "src": "https://js.felmat.net/fmcall.js",
+      "async": true
+    },
+    {
+      "type": "src",
+      "src": "https://js.crossees.com/csslp.js",
+      "async": true
+    }
+  ],
+  "conversion_scripts": [],
+  "thanks_url": "thanks.html"
+}
