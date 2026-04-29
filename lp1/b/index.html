@@ -123,15 +123,9 @@
           params: params,
           timestamp: new Date().toLocaleString('ja-JP', {timeZone: 'Asia/Tokyo'})
         };
-        // GASに非同期送信（失敗してもサンクスページには遷移）
-        try {
-          fetch(gasUrl, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(payload)
-          });
-        } catch(err) { /* 送信失敗は無視 */ }
+        // ローディング表示
+        var submitBtn = document.getElementById('form-submit-btn');
+        if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '送信中...'; }
 
         // GTM dataLayer push（フォームCV）
         window.dataLayer = window.dataLayer || [];
@@ -148,7 +142,17 @@
           return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
         }).join('&');
         if (paramStr) thanksUrl += '?' + paramStr;
-        window.location.href = thanksUrl;
+
+        // GASに送信完了を待ってからサンクスページへ遷移（スマホでのキャンセル防止）
+        var doRedirect = function() { window.location.href = thanksUrl; };
+        try {
+          fetch(gasUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+          }).then(doRedirect).catch(doRedirect);
+        } catch(err) { doRedirect(); }
       };
     });
   </script>
@@ -937,22 +941,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event: 'inquiry_cv', tel: tel });
 
-    // GASに送信して即座にサンクスページへ遷移
+    // ローディング表示
+    var iqSubmitBtn = document.getElementById('iq-submit-btn');
+    if (iqSubmitBtn) { iqSubmitBtn.disabled = true; iqSubmitBtn.querySelector('span').textContent = '送信中...'; }
+
+    // GASに送信完了を待ってからサンクスページへ遷移（スマホでのキャンセル防止）
     var thanksUrl = window.__LP_CONFIG__ ? window.__LP_CONFIG__.thanks_url : 'thanks.html';
     var paramStr = Object.keys(params).map(function(k) {
       return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
     }).join('&');
     if (paramStr) thanksUrl += '?' + paramStr;
 
+    var doRedirect = function() { window.location.href = thanksUrl; };
     try {
       fetch(gasUrl, {
         method: 'POST',
         mode: 'no-cors',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(payload)
-      });
-    } catch(err) {}
-    window.location.href = thanksUrl;
+      }).then(doRedirect).catch(doRedirect);
+    } catch(err) { doRedirect(); }
   });
 })();
 </script>
