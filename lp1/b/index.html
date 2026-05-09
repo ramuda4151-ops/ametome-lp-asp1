@@ -142,6 +142,8 @@
           return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
         }).join('&');
         if (paramStr) thanksUrl += '?' + paramStr;
+        // 電話番号をサンクスページに渡す（felmat uqid用）
+        thanksUrl += (thanksUrl.indexOf('?') >= 0 ? '&' : '?') + 'tel=' + encodeURIComponent(tel);
 
         // GASに送信完了を待ってからサンクスページへ遷移（スマホでのキャンセル防止）
         var doRedirect = function() { window.location.href = thanksUrl; };
@@ -951,6 +953,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
     }).join('&');
     if (paramStr) thanksUrl += '?' + paramStr;
+    // 電話番号をサンクスページに渡す（felmat uqid用）
+    thanksUrl += (thanksUrl.indexOf('?') >= 0 ? '&' : '?') + 'tel=' + encodeURIComponent(tel);
 
     var doRedirect = function() { window.location.href = thanksUrl; };
     try {

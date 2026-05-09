@@ -135,9 +135,11 @@
 <body>
 <!-- felmat CVタグ（body直後） -->
 <script>
-  // uqidにタイムスタンプ+ランダム値を設定してユニーク性を確保
+  // uqidにURLパラメータの電話番号を使用（成果識別ID用）
   (function() {
-    var uqid = Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    var params = new URLSearchParams(window.location.search);
+    var telParam = params.get('tel');
+    var uqid = telParam ? telParam : (Date.now() + '_' + Math.random().toString(36).substr(2, 9));
     var el = document.createElement('script');
     el.type = 'text/javascript';
     el.src = 'https://js.felmat.net/fmcv.js?adid=I11242X&uqid=' + encodeURIComponent(uqid);
