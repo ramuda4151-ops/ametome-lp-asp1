@@ -1,7 +1,7 @@
 {
   "asp": "felmat",
   "tel": "0120-094-956",
-  "tel_raw": "01200940956",
+  "tel_raw": "0120094956",
   "tel_mode": "fmcall",
   "call_tracking_scripts": [
     {
