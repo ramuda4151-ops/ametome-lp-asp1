@@ -33,7 +33,7 @@ def build_call_tracking_scripts_html(scripts):
 
 def build_tel_mode_script(config):
     """tel_modeに応じた電話リンク書き換えスクリプトを生成する"""
-    tel_raw = config.get('tel_raw', '01200940956')
+    tel_raw = config.get('tel_raw', '0120094956')
     mode = config.get('tel_mode', 'plain')
 
     if mode == 'plain':
