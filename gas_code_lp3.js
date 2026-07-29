@@ -11,6 +11,11 @@
  *    ※ LINEのプロパティが未設定の間はLINE通知をスキップし、Gmail通知のみ行う
  * 3. デプロイ > 新しいデプロイ > ウェブアプリ（全員がアクセス可能）で公開し、
  *    発行されたURLを lp3/index.html の gasUrl（2箇所）に設定して build.py を実行する
+ *
+ * ■ LINEグループIDの自動取得
+ * このウェブアプリURLをLINE DevelopersのWebhook URLに設定して「Webhookの利用」をONにし、
+ * botを通知先グループに招待すると、グループIDが自動でスクリプトプロパティ LINE_GROUP_ID に
+ * 保存される（既に設定済みの場合は上書きしない。最新の受信IDは LINE_LAST_GROUP_ID で確認可能）
  */
 
 var NOTIFY_PREFIX = '【アメトメ】"東北"専用';
@@ -19,6 +24,12 @@ var GMAIL_TO = 'ametome.official@gmail.com';
 function doPost(e) {
   try {
     var data = JSON.parse(e.postData.contents);
+
+    // LINE Webhookイベント（グループID取得用）の場合はフォーム処理をせず記録のみ
+    if (data.events) {
+      handleLineWebhook(data.events);
+      return ContentService.createTextOutput(JSON.stringify({ status: "ok" })).setMimeType(ContentService.MimeType.JSON);
+    }
 
     // 写真をGoogle Driveに保存してURLリストを取得
     var photoUrls = [];
@@ -34,6 +45,28 @@ function doPost(e) {
   } catch (error) {
     console.log("エラー発生: " + error.toString());
     return ContentService.createTextOutput(JSON.stringify({ status: "error", message: error.toString() })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+/**
+ * LINE Webhookイベントからグループ/トークルームIDをスクリプトプロパティに保存する
+ * （botをグループに招待した時のjoinイベント等を拾う）
+ */
+function handleLineWebhook(events) {
+  try {
+    var props = PropertiesService.getScriptProperties();
+    for (var i = 0; i < events.length; i++) {
+      var src = events[i].source || {};
+      var id = src.groupId || src.roomId;
+      if (!id) continue;
+      props.setProperty('LINE_LAST_GROUP_ID', id);
+      if (!props.getProperty('LINE_GROUP_ID')) {
+        props.setProperty('LINE_GROUP_ID', id);
+      }
+      console.log('LINEグループIDを受信: ' + id + ' (event: ' + events[i].type + ')');
+    }
+  } catch (e) {
+    console.log('Webhook処理エラー: ' + e.toString());
   }
 }
 
