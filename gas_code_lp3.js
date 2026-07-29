@@ -37,9 +37,9 @@ function doPost(e) {
       photoUrls = savePhotosToDrive(data.photos, data);
     }
 
-    var messageText = createMessage(data, photoUrls);
-    sendGmail(messageText, data);
-    sendLine(messageText);
+    // Gmailは全情報、LINEはASP・ID・パラメータ情報を除いた本文を送る
+    sendGmail(createMessage(data, photoUrls, true), data);
+    sendLine(createMessage(data, photoUrls, false));
 
     return ContentService.createTextOutput(JSON.stringify({ status: "success" })).setMimeType(ContentService.MimeType.JSON);
   } catch (error) {
@@ -150,8 +150,9 @@ function savePhotosToDrive(photos, data) {
 /**
  * 通知メッセージを作成する
  * ※LINEは開かないと2行しか表示されないため、重要情報を先頭に配置
+ * includeTracking: trueならASP・ID・パラメータ情報を含める（Gmail用）、falseなら除外（LINE用）
  */
-function createMessage(data, photoUrls) {
+function createMessage(data, photoUrls, includeTracking) {
   var lpId = data.lp_id || "(IDなし)";
   var tel = data.tel || "(電話番号なし)";
   var selected = data.selected || "(選択なし)";
@@ -190,11 +191,13 @@ function createMessage(data, photoUrls) {
 
   message += "問い合わせ時間: " + timestamp + "\n";
 
-  // ASP・ID表示
-  if (aspName) {
-    message += "asp: " + aspName + "\n";
+  // ASP・ID表示（Gmailのみ）
+  if (includeTracking) {
+    if (aspName) {
+      message += "asp: " + aspName + "\n";
+    }
+    message += "ID: " + lpId + "\n";
   }
-  message += "ID: " + lpId + "\n";
 
   // 写真情報
   if (photoUrls && photoUrls.length > 0) {
@@ -204,16 +207,18 @@ function createMessage(data, photoUrls) {
     }
   }
 
-  // その他タグ
-  message += "\nその他タグ:\n";
-  if (data.params && Object.keys(data.params).length > 0) {
-    for (var key in data.params) {
-      if (key !== "lp_id" && key !== "asp") {
-        message += key + ": " + data.params[key] + "\n";
+  // その他タグ（Gmailのみ）
+  if (includeTracking) {
+    message += "\nその他タグ:\n";
+    if (data.params && Object.keys(data.params).length > 0) {
+      for (var key in data.params) {
+        if (key !== "lp_id" && key !== "asp") {
+          message += key + ": " + data.params[key] + "\n";
+        }
       }
+    } else {
+      message += "(パラメータなし)\n";
     }
-  } else {
-    message += "(パラメータなし)\n";
   }
 
   return message;
