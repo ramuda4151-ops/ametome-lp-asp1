@@ -52,12 +52,11 @@ lp1からの変更点:
   GAS通知の `asp:` 欄でlp1と区別できる
 - 電話番号・felmatキー（I11242X）・レントラックスct3タグはlp1と同一を流用（広告主確認済み・暫定）
 
-### 通知系の状態（TODO）
+### 通知系の状態（2026-07-29 切替完了）
 
-- 通知メッセージ冒頭: `【アメトメ】"東北"専用`（lp3専用GAS `gas_code_lp3.js` に実装済み）
-- **暫定: lp3のgasUrlはlp1と同じGASを向いている**（東北用LINEグループが未作成のため。
-  Gmail＋既存LINEグループに届き、`asp: a_tohoku` 等で判別可能）
-- 東北用LINEグループができたら:
-  1. `gas_code_lp3.js` を新規GASプロジェクトとしてデプロイ（手順はファイル冒頭コメント参照）
-  2. スクリプトプロパティに `LINE_CHANNEL_ACCESS_TOKEN` / `LINE_GROUP_ID` / `DRIVE_FOLDER_ID` を設定
-  3. `lp3/index.html` の `gasUrl`（2箇所）を新URLに差し替え → `cd lp3 && python3 build.py` → push
+- lp3のフォーム送信先はlp3専用GAS（`gas_code_lp3.js` をデプロイしたもの）
+- 通知メッセージ冒頭: `【アメトメ】"東北"専用`。送信先はGmail（ametome.official@gmail.com）＋東北用LINEグループ
+- LINEトークン・グループIDはGASのスクリプトプロパティで管理（`LINE_CHANNEL_ACCESS_TOKEN` / `LINE_GROUP_ID` / `DRIVE_FOLDER_ID`）。コード直書き禁止
+- グループIDの再取得が必要になったら: LINE DevelopersでWebhook URLにGASのURLを設定して
+  「Webhookの利用」をON → グループ内で発言するとbotがIDを返信し、スクリプトプロパティにも自動保存される
+- lp1の通知系は従来のまま（旧GAS・既存LINEグループ）で無変更
