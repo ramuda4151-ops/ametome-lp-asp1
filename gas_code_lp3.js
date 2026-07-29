@@ -56,17 +56,51 @@ function handleLineWebhook(events) {
   try {
     var props = PropertiesService.getScriptProperties();
     for (var i = 0; i < events.length; i++) {
-      var src = events[i].source || {};
+      var ev = events[i];
+      var src = ev.source || {};
       var id = src.groupId || src.roomId;
       if (!id) continue;
       props.setProperty('LINE_LAST_GROUP_ID', id);
       if (!props.getProperty('LINE_GROUP_ID')) {
         props.setProperty('LINE_GROUP_ID', id);
       }
-      console.log('LINEグループIDを受信: ' + id + ' (event: ' + events[i].type + ')');
+      console.log('LINEグループIDを受信: ' + id + ' (event: ' + ev.type + ')');
+
+      // グループIDをその場で返信する（設定確認用。Webhookの利用をOFFにすれば返信も止まる）
+      if (ev.replyToken) {
+        replyLine(ev.replyToken, 'このグループのIDは以下です（スクリプトプロパティにも保存済み）\n' + id);
+      }
     }
   } catch (e) {
     console.log('Webhook処理エラー: ' + e.toString());
+  }
+}
+
+/**
+ * LINEの返信API（reply）でメッセージを返す（グループID確認用）
+ */
+function replyLine(replyToken, text) {
+  var token = PropertiesService.getScriptProperties().getProperty('LINE_CHANNEL_ACCESS_TOKEN');
+  if (!token) {
+    console.log('LINE_CHANNEL_ACCESS_TOKEN が未設定のため返信できません');
+    return;
+  }
+  try {
+    var res = UrlFetchApp.fetch('https://api.line.me/v2/bot/message/reply', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      payload: JSON.stringify({
+        replyToken: replyToken,
+        messages: [{ type: 'text', text: text }]
+      }),
+      muteHttpExceptions: true
+    });
+    console.log('LINE返信結果: HTTP ' + res.getResponseCode() + ' / ' + res.getContentText());
+  } catch (e) {
+    console.log('LINE返信エラー: ' + e.toString());
   }
 }
 
