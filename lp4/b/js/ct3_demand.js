@@ -22,7 +22,7 @@ $(window).on('load', function() {
 		var __rt_ct = __rt_match && decodeURIComponent(__rt_match[1].replace(/\+/g, ' '));
         if(__rt_ct){__rt_ct = __rt_ct.replace('.', '_');}
 
-        var def_telno = "0120459206";
+        var def_telno = "05055745586";
         var baseurl = "https://dyn.calltracker.jp/ct/3.0a/dialins/demand_upsert/";
         var partner_id = "5b4ea9f99dfb1efd72a67ac1";
 
