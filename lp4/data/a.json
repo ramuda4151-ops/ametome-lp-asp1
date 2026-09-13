@@ -1,8 +1,8 @@
 {
   "asp": "felmat",
   "asp_key": "a_fukuoka",
-  "tel": "0120-459-206",
-  "tel_raw": "0120459206",
+  "tel": "050-5574-5586",
+  "tel_raw": "05055745586",
   "tel_mode": "fmcall",
   "call_tracking_scripts": [
     {
